@@ -1,17 +1,18 @@
 package fr.uga.l3miage.integrator.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
 @Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class HealthcheckEntity {
+public class TourneeEntity {
     @Id
-    private Long id;
+    private String reference;
+    private String lettre;
 }
