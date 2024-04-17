@@ -6,7 +6,7 @@ server:
 spring:
   datasource:
     username: postgres
-    password: IntegratorUser1*
+    password: postgres
     url: jdbc:postgresql://integrator-db:5432/
     driver-class-name: "org.postgresql.Driver"
   jpa:
