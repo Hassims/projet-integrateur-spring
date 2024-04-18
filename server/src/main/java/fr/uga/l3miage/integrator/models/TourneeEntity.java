@@ -9,7 +9,6 @@ import java.util.Set;
 
 @Entity
 @Table(name ="tournee")
-
 public class TourneeEntity extends BaseEntity {
     private EtatsDeTournee etat;
     private String lettre;
@@ -22,5 +21,4 @@ public class TourneeEntity extends BaseEntity {
     private List<LivraisonEntity> livraisons;
     @ManyToMany
     private Set<EmployeEntity> livreurs;
-
 }
