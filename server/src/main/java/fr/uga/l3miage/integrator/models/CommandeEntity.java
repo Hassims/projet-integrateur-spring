@@ -16,7 +16,7 @@ public class CommandeEntity extends BaseEntity {
 
     private String reference;
     private EtatsDeCommande etat;
-    private LocalDateTime  dateDeCreation;
+    private LocalDateTime  dateCreation;
     private int note;
     private String commentaire;
     private Integer tddEffectif;
