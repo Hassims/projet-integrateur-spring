@@ -1,7 +1,6 @@
 package fr.uga.l3miage.integrator.components;
 
 import fr.uga.l3miage.integrator.exceptions.technical.DataBaseHealthCheckException;
-import fr.uga.l3miage.integrator.models.HealthcheckEntity;
 import fr.uga.l3miage.integrator.repositories.HealthcheckRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
