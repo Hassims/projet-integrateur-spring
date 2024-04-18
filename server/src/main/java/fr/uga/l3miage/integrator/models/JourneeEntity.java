@@ -2,7 +2,6 @@ package fr.uga.l3miage.integrator.models;
 
 
 import fr.uga.l3miage.integrator.enums.EtatsDeJournee;
-
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Entity ;

@@ -6,6 +6,7 @@ import javax.persistence.Entity ;
 import java.util.Set;
 
 
+
 @Entity
 public class EntrepotEntity extends BaseEntity {
 

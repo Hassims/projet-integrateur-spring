@@ -5,7 +5,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Entity ;
 import java.util.Set;
 
-
 @Entity
 public class CamionEntity extends BaseEntity {
 

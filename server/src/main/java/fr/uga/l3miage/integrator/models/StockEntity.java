@@ -13,4 +13,5 @@ public class StockEntity extends BaseEntity {
     private ProduitEntity produit;
     @ManyToOne
     private EntrepotEntity entrepot;
+
 }

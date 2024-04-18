@@ -22,4 +22,5 @@ public class EmployeEntity extends BaseEntity {
     private EntrepotEntity entrepot;
     @ManyToMany(mappedBy="livreurs")
     private Set<TourneeEntity> tournees;
+
 }

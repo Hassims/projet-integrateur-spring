@@ -4,6 +4,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Entity ;
 
 
+
 @Entity
 public class LigneEntity extends BaseEntity {
 
