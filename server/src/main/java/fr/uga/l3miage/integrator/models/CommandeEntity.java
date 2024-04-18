@@ -4,11 +4,14 @@ import fr.uga.l3miage.integrator.enums.EtatsDeCommande ;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Entity ;
+import javax.persistence.Table;
 import java.util.Set;
 import java.time.LocalDateTime;
 
 
 @Entity
+@Table(name ="commande")
+
 public class CommandeEntity extends BaseEntity {
 
     private String reference;

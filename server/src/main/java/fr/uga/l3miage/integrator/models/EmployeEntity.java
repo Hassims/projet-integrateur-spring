@@ -4,10 +4,13 @@ import fr.uga.l3miage.integrator.enums.Emploi ;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Entity ;
+import javax.persistence.Table;
 import java.util.Set;
 
 
 @Entity
+@Table(name ="employe")
+
 public class EmployeEntity extends BaseEntity {
 
     private String trigramme;

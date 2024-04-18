@@ -5,12 +5,15 @@ import fr.uga.l3miage.integrator.enums.EtatsDeLivraison;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Entity ;
+import javax.persistence.Table;
 import java.util.Set;
 import java.time.LocalTime;
 
 
 
 @Entity
+@Table(name ="livraison")
+
 public class LivraisonEntity extends BaseEntity {
 
     private int numero;

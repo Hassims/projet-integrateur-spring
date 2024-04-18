@@ -3,9 +3,11 @@ package fr.uga.l3miage.integrator.models;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Entity ;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
+@Table(name ="camion")
 public class CamionEntity extends BaseEntity {
 
     private String immatriculation;

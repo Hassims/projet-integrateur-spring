@@ -1,15 +1,15 @@
 package fr.uga.l3miage.integrator.models;
 
 import fr.uga.l3miage.integrator.enums.EtatsDeTournee ;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Entity ;
+
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
 
 @Entity
+@Table(name ="tournee")
+
 public class TourneeEntity extends BaseEntity {
     private EtatsDeTournee etat;
     private String lettre;
