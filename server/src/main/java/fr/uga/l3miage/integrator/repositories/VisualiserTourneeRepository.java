@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TourneeRepository extends JpaRepository<TourneeEntity, String> {
+public interface VisualiserTourneeRepository extends JpaRepository<TourneeEntity, String> {
 }
