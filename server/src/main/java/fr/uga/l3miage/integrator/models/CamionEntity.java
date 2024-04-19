@@ -1,21 +1,15 @@
 package fr.uga.l3miage.integrator.models;
 
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Entity ;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name ="camion")
-public class CamionEntity extends BaseEntity {
-
+public class CamionEntity {
+    @Id
     private String immatriculation;
-    private double latitude;
-    private double longitude;
-
     @OneToMany(mappedBy="camion")
-    public Set<TourneeEntity> tournees;
+    private Set<TourneeEntity> tournees;
     @ManyToOne
     private EntrepotEntity entrepot;
 }

@@ -9,7 +9,10 @@ import java.util.Set;
 
 @Entity
 @Table(name ="tournee")
-public class TourneeEntity extends BaseEntity {
+public class TourneeEntity {
+    @Id
+    @GeneratedValue
+    private Long id;
     private EtatsDeTournee etat;
     private String lettre;
     private Integer tdmEffectif;

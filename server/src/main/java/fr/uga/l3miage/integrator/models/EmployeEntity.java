@@ -1,29 +1,22 @@
 package fr.uga.l3miage.integrator.models;
 
 import fr.uga.l3miage.integrator.enums.Emploi ;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Entity ;
-import javax.persistence.Table;
-import java.util.Set;
 
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name ="employe")
-
-public class EmployeEntity extends BaseEntity {
-
+public class EmployeEntity {
+    @Id
     private String trigramme;
     private String email;
     private String prenom;
     private String nom;
-    private String photo;
     private String telephone;
     private Emploi emploi;
-
-    @OneToOne(mappedBy="planificateur")
+    @ManyToOne
     private EntrepotEntity entrepot;
     @ManyToMany(mappedBy="livreurs")
     private Set<TourneeEntity> tournees;
-
 }
