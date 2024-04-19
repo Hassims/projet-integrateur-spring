@@ -18,4 +18,12 @@ public class JourneeEntity {
     private Set<TourneeEntity> tournees;
     @ManyToOne
     private EntrepotEntity entrepot;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public EntrepotEntity getEntrepot() {
+        return entrepot;
+    }
 }

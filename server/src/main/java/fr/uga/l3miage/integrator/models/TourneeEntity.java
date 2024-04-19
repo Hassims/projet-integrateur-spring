@@ -24,4 +24,11 @@ public class TourneeEntity {
     private List<LivraisonEntity> livraisons;
     @ManyToMany
     private Set<EmployeEntity> livreurs;
+
+    public String getLettre() {
+        return lettre;
+    }
+    public JourneeEntity getJournee(){
+        return  journee ;
+    }
 }
