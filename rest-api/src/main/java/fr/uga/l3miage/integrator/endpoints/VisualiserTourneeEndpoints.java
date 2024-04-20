@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -43,5 +44,5 @@ public interface VisualiserTourneeEndpoints {
     @ApiResponse(responseCode= "200", description = "Un objet qui décrit la tournée et ses objets associés.")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/tournee/{reference}/visu")
-    VisualiserUneTourneeDTO getVisuTournee(@PathVariable(name = "reference")String reference);
+    ResponseEntity<VisualiserUneTourneeDTO> getVisuTournee(@PathVariable(name = "reference")String reference);
 }

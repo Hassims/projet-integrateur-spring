@@ -20,4 +20,8 @@ public class EntrepotEntity {
     private Set<CamionEntity> camions;
     @OneToMany(mappedBy="entrepot")
     private Set<JourneeEntity> journees;
+
+    public String getLettre() {
+        return lettre;
+    }
 }
