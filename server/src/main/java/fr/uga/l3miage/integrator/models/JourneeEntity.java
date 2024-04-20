@@ -10,7 +10,7 @@ import java.util.Set;
 @Table(name ="journee")
 public class JourneeEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private EtatsDeJournee etat;
     private Date date;

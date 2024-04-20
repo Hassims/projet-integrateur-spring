@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name ="stock")
 public class StockEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int quantite;
     @ManyToOne

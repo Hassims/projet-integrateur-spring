@@ -11,7 +11,7 @@ import java.util.Set;
 @Table(name ="tournee")
 public class TourneeEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private EtatsDeTournee etat;
     private String lettre;

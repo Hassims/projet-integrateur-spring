@@ -14,6 +14,7 @@ public class EmployeEntity {
     private String prenom;
     private String nom;
     private String telephone;
+    @Enumerated(EnumType.STRING)
     private Emploi emploi;
     @ManyToOne
     private EntrepotEntity entrepot;

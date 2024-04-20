@@ -10,7 +10,7 @@ import java.time.LocalTime;
 @Table(name ="livraison")
 public class LivraisonEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int numero;
     private EtatsDeLivraison etat;

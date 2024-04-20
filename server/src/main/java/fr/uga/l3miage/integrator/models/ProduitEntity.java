@@ -2,10 +2,7 @@ package fr.uga.l3miage.integrator.models;
 
 import fr.uga.l3miage.integrator.enums.Encombrement;
 
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Entity ;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -14,8 +11,10 @@ public class ProduitEntity {
     @Id
     private String reference;
     private String titre;
+    @Column(length = 1000)
     private String description;
     private double prix;
+    @Enumerated(EnumType.STRING)
     private Encombrement encombrement;
     private boolean optionMontage;
     private Integer tdmTheorique;

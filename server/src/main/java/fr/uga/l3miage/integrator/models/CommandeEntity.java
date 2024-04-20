@@ -11,9 +11,10 @@ import java.time.LocalDateTime;
 public class CommandeEntity {
     @Id
     private String reference;
+    @Enumerated(EnumType.STRING)
     private EtatsDeCommande etat;
     private LocalDateTime dateCreation;
-    private int note;
+    private Integer note;
     private String commentaire;
     private Integer tddEffectif;
     private Integer tdmEffectif;

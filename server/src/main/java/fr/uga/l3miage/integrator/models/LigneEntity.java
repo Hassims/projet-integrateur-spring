@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name ="ligne")
 public class LigneEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int quantite;
     private boolean optionMontage;
