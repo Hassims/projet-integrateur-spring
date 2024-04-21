@@ -18,7 +18,7 @@ public class CommandeEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EtatsDeCommande etat;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime dateCreation;
     @Min(1)
     @Max(5)

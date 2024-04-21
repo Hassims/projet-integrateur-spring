@@ -17,7 +17,7 @@ public class JourneeEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EtatsDeJournee etat;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "DATE")
     private Date date;
     @OneToMany(mappedBy="journee")
     private Set<TourneeEntity> tournees;

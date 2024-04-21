@@ -21,6 +21,7 @@ public class LivraisonEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EtatsDeLivraison etat;
+    @Column(columnDefinition = "TIME")
     private LocalTime heureLivraisonEffective;
     private Integer tdmEffectif;
     @ManyToOne
