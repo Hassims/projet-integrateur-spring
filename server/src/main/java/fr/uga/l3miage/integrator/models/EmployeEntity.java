@@ -15,9 +15,6 @@ public class EmployeEntity {
     @Id
     private String trigramme;
     @Column(nullable = false)
-    @Email
-    private String email;
-    @Column(nullable = false)
     private String prenom;
     @Column(nullable = false)
     private String nom;
