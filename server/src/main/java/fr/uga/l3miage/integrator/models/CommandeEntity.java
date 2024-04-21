@@ -1,20 +1,29 @@
 package fr.uga.l3miage.integrator.models;
 
 import fr.uga.l3miage.integrator.enums.EtatsDeCommande ;
+import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.Set;
 import java.time.LocalDateTime;
 
 @Entity
+@Data
 @Table(name ="commande")
 public class CommandeEntity {
     @Id
     private String reference;
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EtatsDeCommande etat;
+    @Column(nullable = false)
     private LocalDateTime dateCreation;
+    @Min(1)
+    @Max(5)
     private Integer note;
+    @Column(length = 1000)
     private String commentaire;
     private Integer tddEffectif;
     private Integer tdmEffectif;

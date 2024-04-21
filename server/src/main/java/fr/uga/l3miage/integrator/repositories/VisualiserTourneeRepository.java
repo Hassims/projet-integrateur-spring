@@ -8,5 +8,4 @@ import java.util.*;
 
 @Repository
 public interface VisualiserTourneeRepository extends JpaRepository<TourneeEntity, Long> {
-    Set<TourneeEntity> findTourneeEntityByReferance (Date journeeRef, String lettreEntrepot, String lettre);
 }
