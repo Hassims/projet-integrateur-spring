@@ -1,29 +1,31 @@
 package fr.uga.l3miage.integrator.models;
 
 import fr.uga.l3miage.integrator.enums.Emploi ;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Entity ;
-import javax.persistence.Table;
+import lombok.Data;
+
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
-
 @Entity
+@Data
 @Table(name ="employe")
-
-public class EmployeEntity extends BaseEntity {
-
+public class EmployeEntity {
+    @Id
     private String trigramme;
-    private String email;
+    @Column(nullable = false)
     private String prenom;
+    @Column(nullable = false)
     private String nom;
-    private String photo;
+    @Column(nullable = false, length = 10)
+    @Pattern(regexp = "^[0-9]{10}$", message = "Numéro de téléphone non valide.")
     private String telephone;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Emploi emploi;
-
-    @OneToOne(mappedBy="planificateur")
+    @ManyToOne
     private EntrepotEntity entrepot;
     @ManyToMany(mappedBy="livreurs")
     private Set<TourneeEntity> tournees;
-
 }

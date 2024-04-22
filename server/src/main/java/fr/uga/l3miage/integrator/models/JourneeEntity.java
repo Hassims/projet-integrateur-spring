@@ -1,23 +1,24 @@
 package fr.uga.l3miage.integrator.models;
 
-
 import fr.uga.l3miage.integrator.enums.EtatsDeJournee;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Entity ;
-import javax.persistence.Table;
+import lombok.Data;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
-
 @Entity
+@Data
 @Table(name ="journee")
-
-public class JourneeEntity extends BaseEntity {
-
+public class JourneeEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private EtatsDeJournee etat;
+    @Column(nullable = false, columnDefinition = "DATE")
     private Date date;
-
     @OneToMany(mappedBy="journee")
     private Set<TourneeEntity> tournees;
     @ManyToOne

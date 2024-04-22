@@ -1,26 +1,29 @@
 package fr.uga.l3miage.integrator.models;
 
-
 import fr.uga.l3miage.integrator.enums.EtatsDeLivraison;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Entity ;
-import javax.persistence.Table;
+import lombok.Data;
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.Set;
 import java.time.LocalTime;
 
-
-
 @Entity
+@Data
 @Table(name ="livraison")
-
-public class LivraisonEntity extends BaseEntity {
-
+public class LivraisonEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false)
+    @Min(0)
     private int numero;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private EtatsDeLivraison etat;
-    private LocalTime  heureLivraisonEffective;
+    @Column(columnDefinition = "TIME")
+    private LocalTime heureLivraisonEffective;
     private Integer tdmEffectif;
-
     @ManyToOne
     private TourneeEntity tournee;
     @OneToMany(mappedBy="livraison")
