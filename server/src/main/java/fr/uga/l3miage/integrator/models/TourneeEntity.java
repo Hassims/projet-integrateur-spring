@@ -16,6 +16,7 @@ public class TourneeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private EtatsDeTournee etat;
     @Column(nullable = false, length = 1)
     @Pattern(regexp = "^[A-Z]$", message = "Lettre non valide.")
