@@ -4,7 +4,6 @@ import fr.uga.l3miage.integrator.enums.Emploi ;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import java.util.Set;
 
