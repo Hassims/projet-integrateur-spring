@@ -1,7 +1,10 @@
 package fr.uga.l3miage.integrator.models;
 
 import fr.uga.l3miage.integrator.enums.EtatsDeTournee ;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -10,6 +13,9 @@ import java.util.Set;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name ="tournee")
 public class TourneeEntity {
     @Id
@@ -30,4 +36,8 @@ public class TourneeEntity {
     private List<LivraisonEntity> livraisons;
     @ManyToMany
     private Set<EmployeEntity> livreurs;
+
+    public String getReference() {
+        return "t" + journee.getReference().substring(1) + "-" + lettre;
+    }
 }

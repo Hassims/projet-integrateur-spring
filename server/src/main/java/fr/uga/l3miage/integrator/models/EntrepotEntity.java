@@ -1,6 +1,9 @@
 package fr.uga.l3miage.integrator.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -8,6 +11,9 @@ import java.util.Set;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name ="entrepot")
 public class EntrepotEntity {
     @Id
