@@ -1,14 +1,21 @@
 package fr.uga.l3miage.integrator.models;
 
 import fr.uga.l3miage.integrator.enums.EtatsDeJournee;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name ="journee")
 public class JourneeEntity {
     @Id
@@ -18,9 +25,14 @@ public class JourneeEntity {
     @Enumerated(EnumType.STRING)
     private EtatsDeJournee etat;
     @Column(nullable = false, columnDefinition = "DATE")
-    private Date date;
+    private LocalDate date;
     @OneToMany(mappedBy="journee")
     private Set<TourneeEntity> tournees;
     @ManyToOne
     private EntrepotEntity entrepot;
+
+    public String getReference() {
+        String day = String.format("%03d", date.getDayOfYear());
+        return "j" + day + entrepot.getLettre();
+    }
 }
