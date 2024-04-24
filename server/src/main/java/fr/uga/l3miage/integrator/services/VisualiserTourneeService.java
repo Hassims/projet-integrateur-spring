@@ -1,25 +1,17 @@
 package fr.uga.l3miage.integrator.services;
 
-import fr.uga.l3miage.integrator.exceptions.rest.NotFoundEntityRestException;
-import fr.uga.l3miage.integrator.models.JourneeEntity;
+import fr.uga.l3miage.integrator.components.TourneeComponent;
 import fr.uga.l3miage.integrator.models.TourneeEntity;
-import fr.uga.l3miage.integrator.repositories.VisualiserTourneeRepository;
+import fr.uga.l3miage.integrator.repositories.TourneeRepository;
 import lombok.RequiredArgsConstructor;
 
 @org.springframework.stereotype.Service
 @RequiredArgsConstructor
 public class VisualiserTourneeService {
-    private final VisualiserTourneeRepository tourneeRepository;
 
+    private final TourneeRepository tourneeRepository;
+    private final TourneeComponent tourneeComponent;
 
-    public String construireReferenceTournee(TourneeEntity tournee) {
-        String ref = construireReferenceJournee(tournee.getJournee()) ;
-        return "t"+ ref.substring(1,ref.length())+"-"+tournee.getLettre() ;
-    }
-
-    public String construireReferenceJournee(JourneeEntity journee){
-        return "j"+journee.getDate().toString()+journee.getEntrepot().getLettre();
-    }
     /*
     public Set<TourneeEntity> allTournees(){
         try {
@@ -28,13 +20,9 @@ public class VisualiserTourneeService {
             throw e;
         }
     }
-*/
+    */
+
     public TourneeEntity findTournee(String reference) {
-        for (TourneeEntity tournee :  tourneeRepository.findAll()){
-            if (construireReferenceTournee(tournee) == reference){
-                return tournee ;
-            }
-        }
-        throw new NotFoundEntityRestException("Tournée non trouvée");
+        return tourneeComponent.findByReference(reference);
     }
 }
