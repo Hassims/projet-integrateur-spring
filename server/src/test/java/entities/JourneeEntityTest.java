@@ -4,6 +4,7 @@ import fr.uga.l3miage.integrator.models.EntrepotEntity;
 import fr.uga.l3miage.integrator.models.JourneeEntity;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -13,7 +14,7 @@ public class JourneeEntityTest {
 
     @Test
     void getReference28Janvier2024() {
-        Date date = new Date(2024, Calendar.JANUARY, 28);
+        LocalDate date = LocalDate.of(2024, 1, 28);
         EntrepotEntity entrepot = EntrepotEntity.builder().lettre("G").build();
         JourneeEntity journee = JourneeEntity.builder().date(date).entrepot(entrepot).build();
 
