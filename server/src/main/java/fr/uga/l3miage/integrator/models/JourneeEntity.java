@@ -23,4 +23,8 @@ public class JourneeEntity {
     private Set<TourneeEntity> tournees;
     @ManyToOne
     private EntrepotEntity entrepot;
+
+    public String getReference() {
+        return "j" + date.toString() + entrepot.getLettre();
+    }
 }

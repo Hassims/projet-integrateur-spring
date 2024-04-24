@@ -30,4 +30,8 @@ public class TourneeEntity {
     private List<LivraisonEntity> livraisons;
     @ManyToMany
     private Set<EmployeEntity> livreurs;
+
+    public String getReference() {
+        return "t" + journee.getReference().substring(1) + "-" + lettre;
+    }
 }
