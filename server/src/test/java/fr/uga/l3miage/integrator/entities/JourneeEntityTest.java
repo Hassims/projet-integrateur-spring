@@ -1,4 +1,4 @@
-package entities;
+package fr.uga.l3miage.integrator.entities;
 
 import fr.uga.l3miage.integrator.models.EntrepotEntity;
 import fr.uga.l3miage.integrator.models.JourneeEntity;
