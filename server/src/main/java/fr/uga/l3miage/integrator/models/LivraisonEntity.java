@@ -1,10 +1,7 @@
 package fr.uga.l3miage.integrator.models;
 
 import fr.uga.l3miage.integrator.enums.EtatsDeLivraison;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -13,6 +10,7 @@ import java.time.LocalTime;
 
 @Entity
 @Data
+@EqualsAndHashCode(exclude = {"commandes"})
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
