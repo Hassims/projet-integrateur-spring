@@ -73,11 +73,6 @@
                 <artifactId>jjwt</artifactId>
                 <version>${jsonwebtoken.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.google.code.gson</groupId>
-                <artifactId>gson</artifactId>
-                <version>1.4</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
