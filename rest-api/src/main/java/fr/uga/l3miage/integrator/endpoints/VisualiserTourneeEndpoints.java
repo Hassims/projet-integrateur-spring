@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Tag(name = "VisualiserUneTourneeEndpoints")
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/")
 public interface VisualiserTourneeEndpoints {
     /*
     @Operation(description = "Récupère tous les entrepôts.")
