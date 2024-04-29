@@ -2,17 +2,22 @@ package fr.uga.l3miage.integrator.services;
 
 import fr.uga.l3miage.integrator.components.TourneeComponent;
 import fr.uga.l3miage.integrator.exceptions.rest.NotFoundEntityRestException;
+import fr.uga.l3miage.integrator.models.EntrepotEntity;
 import fr.uga.l3miage.integrator.models.TourneeEntity;
+import fr.uga.l3miage.integrator.repositories.EntrepotRepository;
 import fr.uga.l3miage.integrator.repositories.TourneeRepository;
 import lombok.RequiredArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @org.springframework.stereotype.Service
 @RequiredArgsConstructor
 public class VisualiserTourneeService {
 
     private final TourneeRepository tourneeRepository;
+    private final EntrepotRepository entrepotRepository;
     private final TourneeComponent tourneeComponent;
 
     /*
@@ -34,5 +39,9 @@ public class VisualiserTourneeService {
         else {
             throw new NotFoundEntityRestException("Tournée non trouvée");
         }
+    }
+
+    public Set<EntrepotEntity> getAllEntrepots() {
+        return new HashSet<>(entrepotRepository.findAll());
     }
 }
