@@ -9,6 +9,7 @@ import java.util.Set;
 @Entity
 @Data
 @Builder
+@EqualsAndHashCode(exclude = {"tournees"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name ="camion")
