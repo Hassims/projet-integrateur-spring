@@ -1,5 +1,6 @@
 package fr.uga.l3miage.integrator.endpoints;
 
+import fr.uga.l3miage.integrator.response.EntrepotsDTO;
 import fr.uga.l3miage.integrator.response.VisualiserUneTourneeDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -7,6 +8,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 
 @RestController
@@ -45,4 +48,10 @@ public interface VisualiserTourneeEndpoints {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/tournee/{reference}/visu")
     ResponseEntity<VisualiserUneTourneeDTO> getVisuTournee(@PathVariable(name = "reference")String reference);
+
+    @Operation(description = "Récupère toutes les tournées")
+    @ApiResponse(responseCode= "200", description = "Une liste d'entrepots")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/entrepot")
+    ResponseEntity<Set<EntrepotsDTO>>getAllEntrepot();
 }
