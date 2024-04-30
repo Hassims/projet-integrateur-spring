@@ -1,10 +1,14 @@
 package fr.uga.l3miage.integrator.controllers;
 
 import com.google.gson.Gson;
+import fr.uga.l3miage.integrator.enums.EtatsDeJournee;
 import fr.uga.l3miage.integrator.mappers.EntrepotMapper;
 import fr.uga.l3miage.integrator.models.EntrepotEntity;
+import fr.uga.l3miage.integrator.models.JourneeEntity;
 import fr.uga.l3miage.integrator.repositories.EntrepotRepository;
+import fr.uga.l3miage.integrator.repositories.JourneeRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -13,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,10 +33,14 @@ public class VisualiserTourneeControllerTest {
     @Autowired
     private EntrepotRepository entrepotRepository;
     @Autowired
+    private JourneeRepository journeeRepository;
+    @Autowired
     private EntrepotMapper entrepotMapper;
 
+    @BeforeEach
     @AfterEach
     void clean() {
+        journeeRepository.deleteAll();
         entrepotRepository.deleteAll();
     }
 
@@ -64,5 +73,32 @@ public class VisualiserTourneeControllerTest {
         mockMvc.perform(get("/api/entrepot"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJsonResult));
+    }
+
+    @Test
+    void getJourneeByEntrepotAndDateNotFound() throws Exception {
+
+        mockMvc.perform(get("/entrepot/Grenis/journee/2024-01-01"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void getJourneeByEntrepotAndDateFound() throws Exception {
+
+        EntrepotEntity entrepot = EntrepotEntity.builder()
+                .nom("Grenis").lettre("G").adresse("").codePostal("00000").ville("").build();
+
+        JourneeEntity journee = JourneeEntity.builder()
+                .id(1L)
+                .entrepot(entrepot)
+                .date(LocalDate.of(2024, 1 ,1))
+                .etat(EtatsDeJournee.planifiee)
+                .build();
+
+        entrepotRepository.save(entrepot);
+        journeeRepository.save(journee);
+
+        mockMvc.perform(get("/entrepot/Grenis/journee/2024-01-01"))
+                .andExpect(status().isOk());
     }
 }
