@@ -28,10 +28,10 @@ import static org.mockito.Mockito.when;
 
 @AutoConfigureTestDatabase
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class ChargerTourneeServiceTest {
+public class TourneeServiceTest {
 
     @Autowired
-    private ChargerTourneeService service;
+    private TourneeService service;
     @Autowired
     private TourneeRepository tourneeRepository;
     @Autowired

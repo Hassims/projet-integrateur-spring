@@ -18,12 +18,23 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ChargerTourneeService {
+public class TourneeService {
 
     private final TourneeRepository tourneeRepository;
     private final LivraisonRepository livraisonRepository;
     private final CommandeRepository commandeRepository;
     private final TourneeComponent tourneeComponent;
+
+    public TourneeEntity findTournee(String reference) throws NotFoundEntityRestException {
+        Optional<TourneeEntity> optTournee = tourneeComponent.findByReference(reference);
+
+        if (optTournee.isPresent()) {
+            return optTournee.get();
+        }
+        else {
+            throw new NotFoundEntityRestException("Tournée non trouvée");
+        }
+    }
 
     public TourneeEntity updateTourneeEtat(String reference, EtatsDeTournee etat) throws NotFoundEntityRestException {
         Optional<TourneeEntity> optTournee = tourneeComponent.findByReference(reference);

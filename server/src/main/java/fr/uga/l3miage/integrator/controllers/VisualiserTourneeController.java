@@ -6,7 +6,9 @@ import fr.uga.l3miage.integrator.mappers.TourneeMapper;
 import fr.uga.l3miage.integrator.response.EntrepotDTO;
 import fr.uga.l3miage.integrator.response.JourneeDTO;
 import fr.uga.l3miage.integrator.response.VisualiserUneTourneeDTO;
-import fr.uga.l3miage.integrator.services.VisualiserTourneeService;
+import fr.uga.l3miage.integrator.services.EntrepotService;
+import fr.uga.l3miage.integrator.services.JourneeService;
+import fr.uga.l3miage.integrator.services.TourneeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,18 +19,20 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class VisualiserTourneeController implements VisualiserTourneeEndpoints {
 
-    private final VisualiserTourneeService service;
+    private final EntrepotService entrepotService;
+    private final JourneeService journeeService;
+    private final TourneeService tourneeService;
     private final TourneeMapper tourneeMapper;
     private final EntrepotMapper entrepotMapper;
 
     @Override
     public VisualiserUneTourneeDTO getVisuTournee(@PathVariable String reference) {
-        return tourneeMapper.toResponse(service.findTournee(reference));
+        return tourneeMapper.toResponse(tourneeService.findTournee(reference));
     }
 
     @Override
     public Set<EntrepotDTO> getAllEntrepot() {
-        return entrepotMapper.toDTOSet(service.getAllEntrepots());
+        return entrepotMapper.toDTOSet(entrepotService.getAllEntrepots());
     }
 
     @Override

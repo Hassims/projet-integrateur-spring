@@ -5,7 +5,7 @@ import fr.uga.l3miage.integrator.repositories.CommandeRepository;
 import fr.uga.l3miage.integrator.repositories.LivraisonRepository;
 import fr.uga.l3miage.integrator.repositories.TourneeRepository;
 import fr.uga.l3miage.integrator.requests.TourneePatchRequest;
-import fr.uga.l3miage.integrator.services.ChargerTourneeService;
+import fr.uga.l3miage.integrator.services.TourneeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -30,7 +30,7 @@ public class ChargerTourneeControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @SpyBean
-    private ChargerTourneeService service;
+    private TourneeService service;
     @Autowired
     private TourneeRepository tourneeRepository;
     @Autowired
