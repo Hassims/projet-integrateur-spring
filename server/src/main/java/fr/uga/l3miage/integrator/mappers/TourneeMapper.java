@@ -13,7 +13,7 @@ public interface TourneeMapper {
     VisualiserUneTourneeDTO toDTO(TourneeEntity playlistEntity);
 
     default String mapJournee(JourneeEntity journee) {
-        return journee.getDate().toString();
+        return journee.getReference();
     }
 
     default String mapCamion(CamionEntity camion) { return camion.getImmatriculation(); }
