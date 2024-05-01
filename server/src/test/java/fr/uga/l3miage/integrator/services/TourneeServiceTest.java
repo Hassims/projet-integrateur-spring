@@ -58,31 +58,31 @@ public class TourneeServiceTest {
 
     @Test
     void updateTourneeEtatFromPlanifieeToEnChargement() throws Exception {
-        TourneeEntity tournee = TourneeEntity.builder().lettre("A").etat(EtatsDeTournee.planifiee).build();
+        TourneeEntity tournee = TourneeEntity.builder().lettre("A").etat(EtatsDeTournee.PLANIFIEE).build();
 
         when(tourneeComponent.findByReference(anyString())).thenReturn(tournee);
-        service.updateTourneeEtat("t001G-A", EtatsDeTournee.enChargement);
+        service.updateTourneeEtat("t001G-A", EtatsDeTournee.EN_CHARGEMENT);
 
-        assertThat(tournee.getEtat()).isEqualTo(EtatsDeTournee.enChargement);
+        assertThat(tournee.getEtat()).isEqualTo(EtatsDeTournee.EN_CHARGEMENT);
     }
 
     @Test
     void updateTourneeEtatFromEnChargementToEnParcours() throws Exception {
 
         TourneeEntity tournee = TourneeEntity.builder()
-                .etat(EtatsDeTournee.enChargement)
+                .etat(EtatsDeTournee.EN_CHARGEMENT)
                 .lettre("A")
                 .build();
 
         LivraisonEntity livraison = LivraisonEntity.builder()
-                .etat(EtatsDeLivraison.planifiee)
+                .etat(EtatsDeLivraison.PLANIFIEE)
                 .numero(1)
                 .tournee(tournee)
                 .build();
 
         CommandeEntity commande = CommandeEntity.builder()
                 .reference("c001")
-                .etat(EtatsDeCommande.planifiee)
+                .etat(EtatsDeCommande.PLANIFIEE)
                 .dateCreation(LocalDateTime.of(2024, 1, 1, 0, 0, 0))
                 .livraison(livraison)
                 .build();
@@ -95,11 +95,11 @@ public class TourneeServiceTest {
         when(livraisonRepository.save(any())).thenReturn(livraison);
         when(commandeRepository.save(any())).thenReturn(commande);
 
-        service.updateTourneeEtat("t001G-A", EtatsDeTournee.enParcours);
+        service.updateTourneeEtat("t001G-A", EtatsDeTournee.EN_PARCOURS);
 
-        assertThat(tournee.getEtat()).isEqualTo(EtatsDeTournee.enParcours);
-        assertThat(livraison.getEtat()).isEqualTo(EtatsDeLivraison.enParcours);
-        assertThat(commande.getEtat()).isEqualTo(EtatsDeCommande.enLivraison);
+        assertThat(tournee.getEtat()).isEqualTo(EtatsDeTournee.EN_PARCOURS);
+        assertThat(livraison.getEtat()).isEqualTo(EtatsDeLivraison.EN_PARCOURS);
+        assertThat(commande.getEtat()).isEqualTo(EtatsDeCommande.EN_LIVRAISON);
     }
 
     @Test
@@ -108,6 +108,6 @@ public class TourneeServiceTest {
 
         assertThrows(
                 NotFoundEntityRestException.class,
-                () -> service.updateTourneeEtat("t001G-A", EtatsDeTournee.enChargement));
+                () -> service.updateTourneeEtat("t001G-A", EtatsDeTournee.EN_CHARGEMENT));
     }
 }

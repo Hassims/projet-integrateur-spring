@@ -106,7 +106,7 @@ public class VisualiserTourneeControllerTest {
                 .id(1L)
                 .entrepot(entrepot)
                 .date(LocalDate.of(2024, 1 ,1))
-                .etat(EtatsDeJournee.planifiee)
+                .etat(EtatsDeJournee.PLANIFIEE)
                 .build();
 
         entrepotRepository.save(entrepot);
@@ -135,7 +135,7 @@ public class VisualiserTourneeControllerTest {
 
 
         JourneeEntity visuJournee = JourneeEntity.builder()
-                .etat(EtatsDeJournee.planifiee)
+                .etat(EtatsDeJournee.PLANIFIEE)
                 .entrepot(visuEntrepot)
                 .date(LocalDate.of(2024,1,28))
                 .build();
@@ -143,7 +143,7 @@ public class VisualiserTourneeControllerTest {
         journeeRepository.save(visuJournee) ;
 
         TourneeEntity visuTournee = TourneeEntity.builder()
-                .etat(EtatsDeTournee.planifiee)
+                .etat(EtatsDeTournee.PLANIFIEE)
                 .lettre("A")
                 .journee(visuJournee)
                 .camion(visuCamion)
