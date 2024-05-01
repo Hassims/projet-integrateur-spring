@@ -5,12 +5,7 @@ import fr.uga.l3miage.integrator.enums.EtatsDeCommande;
 import fr.uga.l3miage.integrator.enums.EtatsDeLivraison;
 import fr.uga.l3miage.integrator.enums.EtatsDeTournee;
 import fr.uga.l3miage.integrator.exceptions.rest.NotFoundEntityRestException;
-import fr.uga.l3miage.integrator.models.CommandeEntity;
-import fr.uga.l3miage.integrator.models.LivraisonEntity;
-import fr.uga.l3miage.integrator.models.TourneeEntity;
-import fr.uga.l3miage.integrator.repositories.CommandeRepository;
-import fr.uga.l3miage.integrator.repositories.LivraisonRepository;
-import fr.uga.l3miage.integrator.repositories.TourneeRepository;
+import fr.uga.l3miage.integrator.models.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -22,7 +17,6 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -32,36 +26,50 @@ public class TourneeServiceTest {
 
     @Autowired
     private TourneeService service;
-    @Autowired
-    private TourneeRepository tourneeRepository;
-    @Autowired
-    private LivraisonRepository livraisonRepository;
-    @Autowired
-    private CommandeRepository commandeRepository;
     @MockBean
-    private TourneeComponent component;
+    private TourneeComponent tourneeComponent;
 
     @Test
-    void updateTourneeEtatFromPlanifieeToEnChargement() {
+    void findByReferenceFound() throws Exception {
+        TourneeEntity tourneeExpected = TourneeEntity.builder().lettre("A").build();
+
+        when(tourneeComponent.findByReference("t001G-A")).thenReturn(tourneeExpected);
+
+        TourneeEntity tourneeFound = service.findByReference("t001G-A");
+
+        assertThat(tourneeFound).isEqualTo(tourneeExpected);
+    }
+
+    @Test
+    void findByReferenceNotFound() throws Exception {
+        when(tourneeComponent.findByReference(anyString())).thenThrow(new Exception());
+        assertThrows(NotFoundEntityRestException.class, () -> service.findByReference("t001G-A"));
+    }
+
+    @Test
+    void updateTourneeEtatFromPlanifieeToEnChargement() throws Exception {
         TourneeEntity tournee = TourneeEntity.builder().lettre("A").etat(EtatsDeTournee.planifiee).build();
 
-        when(component.findByReference(anyString())).thenReturn(Optional.of(tournee));
-        service.updateTourneeEtat("t028G-A", EtatsDeTournee.enChargement);
+        when(tourneeComponent.findByReference(anyString())).thenReturn(tournee);
+        service.updateTourneeEtat("t001G-A", EtatsDeTournee.enChargement);
 
         assertThat(tournee.getEtat()).isEqualTo(EtatsDeTournee.enChargement);
     }
 
     @Test
-    void updateTourneeEtatFromEnChargementToEnParcours() {
+    void updateTourneeEtatFromEnChargementToEnParcours() throws Exception {
+
         TourneeEntity tournee = TourneeEntity.builder()
                 .etat(EtatsDeTournee.enChargement)
                 .lettre("A")
                 .build();
+
         LivraisonEntity livraison = LivraisonEntity.builder()
                 .etat(EtatsDeLivraison.planifiee)
                 .numero(1)
                 .tournee(tournee)
                 .build();
+
         CommandeEntity commande = CommandeEntity.builder()
                 .reference("c001")
                 .etat(EtatsDeCommande.planifiee)
@@ -72,12 +80,9 @@ public class TourneeServiceTest {
         tournee.setLivraisons(List.of(livraison));
         livraison.setCommandes(Set.of(commande));
 
-        tourneeRepository.save(tournee);
-        livraisonRepository.save(livraison);
-        commandeRepository.save(commande);
+        when(tourneeComponent.findByReference(anyString())).thenReturn(tournee);
 
-        when(component.findByReference(anyString())).thenReturn(Optional.of(tournee));
-        service.updateTourneeEtat("t028G-A", EtatsDeTournee.enParcours);
+        service.updateTourneeEtat("t001G-A", EtatsDeTournee.enParcours);
 
         assertThat(tournee.getEtat()).isEqualTo(EtatsDeTournee.enParcours);
         assertThat(livraison.getEtat()).isEqualTo(EtatsDeLivraison.enParcours);
@@ -85,10 +90,11 @@ public class TourneeServiceTest {
     }
 
     @Test
-    void updateTourneeEtatNotFound() {
-        when(component.findByReference(anyString())).thenReturn(Optional.empty());
+    void updateTourneeEtatNotFound() throws Exception {
+        when(tourneeComponent.findByReference(anyString())).thenThrow(new Exception());
 
-        assertThrows(NotFoundEntityRestException.class,
-                () -> service.updateTourneeEtat("t028G-A", EtatsDeTournee.enChargement));
+        assertThrows(
+                NotFoundEntityRestException.class,
+                () -> service.updateTourneeEtat("t001G-A", EtatsDeTournee.enChargement));
     }
 }
