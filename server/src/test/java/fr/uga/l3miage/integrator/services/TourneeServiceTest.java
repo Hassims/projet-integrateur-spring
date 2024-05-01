@@ -6,6 +6,9 @@ import fr.uga.l3miage.integrator.enums.EtatsDeLivraison;
 import fr.uga.l3miage.integrator.enums.EtatsDeTournee;
 import fr.uga.l3miage.integrator.exceptions.rest.NotFoundEntityRestException;
 import fr.uga.l3miage.integrator.models.*;
+import fr.uga.l3miage.integrator.repositories.CommandeRepository;
+import fr.uga.l3miage.integrator.repositories.LivraisonRepository;
+import fr.uga.l3miage.integrator.repositories.TourneeRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -17,6 +20,7 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -28,6 +32,12 @@ public class TourneeServiceTest {
     private TourneeService service;
     @MockBean
     private TourneeComponent tourneeComponent;
+    @MockBean
+    private TourneeRepository tourneeRepository;
+    @MockBean
+    private LivraisonRepository livraisonRepository;
+    @MockBean
+    private CommandeRepository commandeRepository;
 
     @Test
     void findByReferenceFound() throws Exception {
@@ -81,6 +91,9 @@ public class TourneeServiceTest {
         livraison.setCommandes(Set.of(commande));
 
         when(tourneeComponent.findByReference(anyString())).thenReturn(tournee);
+        when(tourneeRepository.save(any())).thenReturn(tournee);
+        when(livraisonRepository.save(any())).thenReturn(livraison);
+        when(commandeRepository.save(any())).thenReturn(commande);
 
         service.updateTourneeEtat("t001G-A", EtatsDeTournee.enParcours);
 
