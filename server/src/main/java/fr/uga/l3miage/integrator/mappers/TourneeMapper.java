@@ -1,4 +1,4 @@
-package fr.uga.l3miage.integrator.mappers;
+ package fr.uga.l3miage.integrator.mappers;
 
 import fr.uga.l3miage.integrator.models.*;
 import fr.uga.l3miage.integrator.response.VisualiserUneTourneeDTO;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Mapper
 public interface TourneeMapper {
 
-    VisualiserUneTourneeDTO toDTO(TourneeEntity playlistEntity);
+    VisualiserUneTourneeDTO toDTO(TourneeEntity tourneeEntity);
 
     default String mapJournee(JourneeEntity journee) {
         return journee.getReference();

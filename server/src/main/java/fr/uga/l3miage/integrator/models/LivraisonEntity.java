@@ -32,4 +32,8 @@ public class LivraisonEntity {
     private TourneeEntity tournee;
     @OneToMany(mappedBy="livraison")
     private Set<CommandeEntity> commandes;
+
+    public String getReference() {
+        return "l"+tournee.getReference()+this.numero;
+    }
 }
