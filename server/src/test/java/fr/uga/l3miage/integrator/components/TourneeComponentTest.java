@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @AutoConfigureTestDatabase
@@ -28,7 +29,7 @@ public class TourneeComponentTest {
     private TourneeRepository repository;
 
     @Test
-    void findByReferenceFound() {
+    void findByReferenceFound() throws Exception {
         LocalDate date = LocalDate.of(2024, 1, 28);
         EntrepotEntity entrepot = EntrepotEntity.builder().lettre("G").build();
         JourneeEntity journee = JourneeEntity.builder().date(date).entrepot(entrepot).build();
@@ -36,14 +37,13 @@ public class TourneeComponentTest {
 
         when(repository.findAll()).thenReturn(List.of(tournee));
 
-        assertThat(component.findByReference("t028G-A").isPresent()).isTrue();
-        assertThat(component.findByReference("t028G-A").get()).isEqualTo(tournee);
+        assertThat(component.findByReference("t028G-A")).isEqualTo(tournee);
     }
 
     @Test
     void findByReferenceNotFound() {
         when(repository.findAll()).thenReturn(new ArrayList<>());
 
-        assertThat(component.findByReference("t028G-A").isPresent()).isFalse();
+        assertThrows(Exception.class, () -> component.findByReference("t028G-A"));
     }
 }

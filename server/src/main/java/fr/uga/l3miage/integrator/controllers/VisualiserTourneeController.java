@@ -3,53 +3,49 @@ package fr.uga.l3miage.integrator.controllers;
 import fr.uga.l3miage.integrator.endpoints.VisualiserTourneeEndpoints;
 import fr.uga.l3miage.integrator.exceptions.rest.NotFoundEntityRestException;
 import fr.uga.l3miage.integrator.mappers.EntrepotMapper;
+import fr.uga.l3miage.integrator.mappers.JourneeMapper;
 import fr.uga.l3miage.integrator.mappers.TourneeMapper;
-import fr.uga.l3miage.integrator.models.EntrepotEntity;
-import fr.uga.l3miage.integrator.models.TourneeEntity;
-import fr.uga.l3miage.integrator.response.EntrepotsDTO;
+import fr.uga.l3miage.integrator.models.JourneeEntity;
+import fr.uga.l3miage.integrator.response.EntrepotDTO;
+import fr.uga.l3miage.integrator.response.JourneeDTO;
 import fr.uga.l3miage.integrator.response.VisualiserUneTourneeDTO;
-import fr.uga.l3miage.integrator.services.VisualiserTourneeService;
+import fr.uga.l3miage.integrator.services.EntrepotService;
+import fr.uga.l3miage.integrator.services.JourneeService;
+import fr.uga.l3miage.integrator.services.TourneeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashSet;
+import java.time.LocalDate;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
 public class VisualiserTourneeController implements VisualiserTourneeEndpoints {
 
-    private final VisualiserTourneeService service;
-    private final TourneeMapper mapper;
+    private final EntrepotService entrepotService;
+    private final JourneeService journeeService;
+    private final TourneeService tourneeService;
+    private final TourneeMapper tourneeMapper;
     private final EntrepotMapper entrepotMapper;
+    private final JourneeMapper journeeMapper ;
 
-    /**
-     * @param reference
-     * @return
-     */
     @Override
-    public ResponseEntity<VisualiserUneTourneeDTO> getVisuTournee(@PathVariable String reference) {
-        try {
-            TourneeEntity tourneeEntity = service.findTournee(reference);
-            VisualiserUneTourneeDTO tourneeDTO = mapper.toResponse(tourneeEntity);
-            return ResponseEntity.ok(tourneeDTO);
-        } catch (NotFoundEntityRestException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+    public VisualiserUneTourneeDTO getVisuTournee(@PathVariable String reference) {
+        return tourneeMapper.toDTO(tourneeService.findByReference(reference));
     }
 
     @Override
-    public ResponseEntity<Set<EntrepotsDTO>> getAllEntrepot() {
-        Set<EntrepotEntity> set = service.getAllEntrepots();
-        Set<EntrepotsDTO> setDTO = new HashSet<>();
-        for (EntrepotEntity entrepot : set) {
-            setDTO.add(entrepotMapper.toDTO(entrepot));
-        }
-        return ResponseEntity.ok(setDTO);
+    public Set<EntrepotDTO> getAllEntrepot() {
+
+        return entrepotMapper.toDTOSet(entrepotService.getAllEntrepots());
     }
 
-
+    @Override
+    public JourneeDTO getJourneeByEntrepotAndDate(String nomEntrepot, String date) {
+        return journeeMapper.toDTO(
+                journeeService.findJourneeByEntrepotAndDate(nomEntrepot, LocalDate.parse(date))
+        );
+    }
 }

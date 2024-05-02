@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 @Mapper
 public interface TourneeMapper {
 
-    VisualiserUneTourneeDTO toResponse(TourneeEntity playlistEntity);
+    VisualiserUneTourneeDTO toDTO(TourneeEntity playlistEntity);
 
     default String mapJournee(JourneeEntity journee) {
-        return journee.getDate().toString();
+        return journee.getReference();
     }
 
     default String mapCamion(CamionEntity camion) { return camion.getImmatriculation(); }
