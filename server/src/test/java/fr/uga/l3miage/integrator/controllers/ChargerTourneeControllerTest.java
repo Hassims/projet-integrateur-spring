@@ -5,7 +5,7 @@ import fr.uga.l3miage.integrator.repositories.CommandeRepository;
 import fr.uga.l3miage.integrator.repositories.LivraisonRepository;
 import fr.uga.l3miage.integrator.repositories.TourneeRepository;
 import fr.uga.l3miage.integrator.requests.TourneePatchRequest;
-import fr.uga.l3miage.integrator.services.ChargerTourneeService;
+import fr.uga.l3miage.integrator.services.TourneeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -30,7 +30,7 @@ public class ChargerTourneeControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @SpyBean
-    private ChargerTourneeService service;
+    private TourneeService service;
     @Autowired
     private TourneeRepository tourneeRepository;
     @Autowired
@@ -40,7 +40,7 @@ public class ChargerTourneeControllerTest {
 
     @Test
     void patchTourneeEtatNotFound() throws Exception {
-        final TourneePatchRequest requestObj = TourneePatchRequest.builder().etat(EtatsDeTournee.enChargement).build();
+        final TourneePatchRequest requestObj = TourneePatchRequest.builder().etat(EtatsDeTournee.EN_CHARGEMENT).build();
         final MockHttpServletRequestBuilder request = patch("/api/tournee/t028G-A")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new Gson().toJson(requestObj));
