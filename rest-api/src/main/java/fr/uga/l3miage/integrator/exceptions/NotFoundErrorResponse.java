@@ -7,8 +7,8 @@ import lombok.Data;
 @Builder
 @Data
 public class NotFoundErrorResponse {
-    @Schema(description = "end point call", example = "/api/drone/")
+    @Schema(description = "end point call", example = "/api/tournee/t000G-A")
     private final String uri;
-    @Schema(description = "error message", example = "La playlist n°1 n'existe pas")
+    @Schema(description = "error message", example = "Tournée non trouvée.")
     private final String errorMessage;
 }

@@ -1,10 +1,10 @@
 package fr.uga.l3miage.integrator.enums;
 
 public enum EtatsDeLivraison {
-    planifiee,
-    enParcours,
-    enDechargement,
-    enClientele,
-    enMontage,
-    effectuee
+    PLANIFIEE,
+    EN_PARCOURS,
+    EN_DECHARGEMENT,
+    EN_CLIENTELE,
+    EN_MONTAGE,
+    EFFECTUEE
 }

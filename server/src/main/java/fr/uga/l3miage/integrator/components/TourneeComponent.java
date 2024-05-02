@@ -13,12 +13,11 @@ public class TourneeComponent {
 
     private final TourneeRepository tourneeRepository;
 
-    public Optional<TourneeEntity> findByReference(String reference) {
-        for (TourneeEntity tournee :  tourneeRepository.findAll()){
-            if (tournee.getReference().equals(reference)){
-                return Optional.of(tournee) ;
-            }
-        }
-        return Optional.empty();
+    public TourneeEntity findByReference(String reference) throws Exception {
+        return tourneeRepository.findAll()
+                .stream()
+                .filter(t -> t.getReference().equals(reference))
+                .findFirst()
+                .orElseThrow();
     }
 }

@@ -1,10 +1,7 @@
 package fr.uga.l3miage.integrator.models;
 
 import fr.uga.l3miage.integrator.enums.EtatsDeCommande ;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @Builder
+@EqualsAndHashCode(exclude = {"lignes"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name ="commande")

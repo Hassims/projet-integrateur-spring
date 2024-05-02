@@ -1,9 +1,6 @@
 package fr.uga.l3miage.integrator.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -13,6 +10,7 @@ import java.util.Set;
 @Entity
 @Data
 @Builder
+@EqualsAndHashCode(exclude = {"commandes"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name ="client")
