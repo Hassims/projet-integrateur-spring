@@ -1284,23 +1284,23 @@ INSERT INTO camion (immatriculation, entrepot_nom) VALUES
                                                        ('ZZ-656-UV', 'Valis');
 
 INSERT INTO employe (trigramme, prenom, nom, telephone, emploi, entrepot_nom) VALUES
-                                                                                  ('STR', 'claudia', 'TESSIER', '0678125265', 'planificateur', 'Grenis'),
-                                                                                  ('EBD', 'élisa', 'BERAND', '0678541296', 'livreur', 'Grenis'),
-                                                                                  ('SWL', 'sophie', 'WHEEL', '0685698568', 'livreur', 'Grenis'),
-                                                                                  ('MPK', 'marja', 'POLIK', '0612885685', 'livreur', 'Grenis'),
-                                                                                  ('CMJ', 'citeb', 'MARUJ', '0657477854', 'livreur', 'Grenis'),
-                                                                                  ('MKR', 'malik', 'KEPLER', '0685584112', 'livreur', 'Grenis'),
-                                                                                  ('EET', 'elisa', 'EKKART', '0652145821', 'livreur', 'Grenis'),
-                                                                                  ('MJO', 'mylène', 'JODO', '0658952241', 'planificateur', 'Bronis'),
-                                                                                  ('AAA', 'anais', 'ANNA', '0657813525', 'livreur', 'Bronis'),
-                                                                                  ('WKT', 'wong', 'KENT', '0658548526', 'livreur', 'Bronis'),
-                                                                                  ('CJE', 'carolyn', 'JUNE', '0658400001', 'livreur', 'Bronis'),
-                                                                                  ('MPT', 'michel', 'PARROT', '0689752214', 'livreur', 'Bronis'),
-                                                                                  ('PMT', 'paul', 'MERLOT', '0644732212', 'livreur', 'Bronis'),
-                                                                                  ('MNL', 'maurice', 'NEEL', '0652251251', 'livreur', 'Bronis'),
-                                                                                  ('KMR', 'koi', 'MERCIER', '0652146524', 'planificateur', 'Albis'),
-                                                                                  ('RNI', 'robert', 'NULI', '0609856325', 'livreur', 'Albis'),
-                                                                                  ('ABM', 'ahmed', 'BOTOM', '0621211852', 'planificateur', 'Valis');
+                                                                                  ('STR', 'claudia', 'TESSIER', '0678125265', 'PLANIFICATEUR', 'Grenis'),
+                                                                                  ('EBD', 'élisa', 'BERAND', '0678541296', 'LIVREUR', 'Grenis'),
+                                                                                  ('SWL', 'sophie', 'WHEEL', '0685698568', 'LIVREUR', 'Grenis'),
+                                                                                  ('MPK', 'marja', 'POLIK', '0612885685', 'LIVREUR', 'Grenis'),
+                                                                                  ('CMJ', 'citeb', 'MARUJ', '0657477854', 'LIVREUR', 'Grenis'),
+                                                                                  ('MKR', 'malik', 'KEPLER', '0685584112', 'LIVREUR', 'Grenis'),
+                                                                                  ('EET', 'elisa', 'EKKART', '0652145821', 'LIVREUR', 'Grenis'),
+                                                                                  ('MJO', 'mylène', 'JODO', '0658952241', 'PLANIFICATEUR', 'Bronis'),
+                                                                                  ('AAA', 'anais', 'ANNA', '0657813525', 'LIVREUR', 'Bronis'),
+                                                                                  ('WKT', 'wong', 'KENT', '0658548526', 'LIVREUR', 'Bronis'),
+                                                                                  ('CJE', 'carolyn', 'JUNE', '0658400001', 'LIVREUR', 'Bronis'),
+                                                                                  ('MPT', 'michel', 'PARROT', '0689752214', 'LIVREUR', 'Bronis'),
+                                                                                  ('PMT', 'paul', 'MERLOT', '0644732212', 'LIVREUR', 'Bronis'),
+                                                                                  ('MNL', 'maurice', 'NEEL', '0652251251', 'LIVREUR', 'Bronis'),
+                                                                                  ('KMR', 'koi', 'MERCIER', '0652146524', 'PLANIFICATEUR', 'Albis'),
+                                                                                  ('RNI', 'robert', 'NULI', '0609856325', 'LIVREUR', 'Albis'),
+                                                                                  ('ABM', 'ahmed', 'BOTOM', '0621211852', 'PLANIFICATEUR', 'Valis');
 
 INSERT INTO journee (etat, date, entrepot_nom) VALUES
                                                    ('PLANIFIEE', '2025-01-01', 'Grenis'),
