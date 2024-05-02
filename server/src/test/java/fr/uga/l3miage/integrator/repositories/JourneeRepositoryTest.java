@@ -3,17 +3,18 @@ package fr.uga.l3miage.integrator.repositories;
 import fr.uga.l3miage.integrator.enums.EtatsDeJournee;
 import fr.uga.l3miage.integrator.models.EntrepotEntity;
 import fr.uga.l3miage.integrator.models.JourneeEntity;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @AutoConfigureTestDatabase
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -24,6 +25,13 @@ public class JourneeRepositoryTest {
     private EntrepotRepository entrepotRepository;
     @Autowired
     private JourneeRepository journeeRepository ;
+
+    @BeforeEach
+    @AfterEach
+    void clean() {
+        journeeRepository.deleteAll();
+        entrepotRepository.deleteAll();
+    }
 
     @Test
     void  findByEntrepotNomAndDate(){
@@ -50,10 +58,6 @@ public class JourneeRepositoryTest {
         JourneeEntity resultat = journeeRepository.findByEntrepotNomAndDate(nomEntrepot,findbyjournee.getDate()) ;
 
         assertThat(resultat).isEqualTo(findbyjournee) ;
-
-        // Supprimer les repositories
-        journeeRepository.deleteAll();
-        entrepotRepository.deleteAll();
 
     }
 

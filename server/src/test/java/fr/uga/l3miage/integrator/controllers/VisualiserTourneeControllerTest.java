@@ -102,6 +102,8 @@ public class VisualiserTourneeControllerTest {
         EntrepotEntity entrepot = EntrepotEntity.builder()
                 .nom("Grenis").lettre("G").adresse("").codePostal("00000").ville("").build();
 
+        entrepotRepository.save(entrepot);
+
         JourneeEntity journee = JourneeEntity.builder()
                 .id(1L)
                 .entrepot(entrepot)
