@@ -33,7 +33,7 @@ public class VisualiserTourneeController implements VisualiserTourneeEndpoints {
 
     @Override
     public VisualiserUneTourneeDTO getVisuTournee(@PathVariable String reference) {
-        return tourneeMapper.toResponse(tourneeService.findTournee(reference));
+        return tourneeMapper.toDTO(tourneeService.findByReference(reference));
     }
 
     @Override

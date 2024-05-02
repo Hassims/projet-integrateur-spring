@@ -4,6 +4,7 @@ import fr.uga.l3miage.integrator.models.*;
 import fr.uga.l3miage.integrator.response.EntrepotDTO;
 import org.mapstruct.Mapper;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,16 +15,16 @@ public interface EntrepotMapper {
     List<EntrepotDTO> toDTOList(List<EntrepotEntity> entities);
     Set<EntrepotDTO> toDTOSet(Set<EntrepotEntity> entities);
 
-    default Set<Long> mapJournees(Set<JourneeEntity> journees) {
+    default Set<String> mapJournees(Set<JourneeEntity> journees) {
         return journees == null ?
                 Set.of() :
-                journees.stream().map(JourneeEntity::getId).collect(Collectors.toSet());
+                journees.stream().map(JourneeEntity::getReference).collect(Collectors.toSet());
     }
 
-    default Set<Long> mapStocks(Set<StockEntity> stocks) {
+    default Set<String> mapStocks(Set<StockEntity> stocks) {
         return stocks == null ?
                 Set.of() :
-                stocks.stream().map(StockEntity::getId).collect(Collectors.toSet());
+                stocks.stream().map(stock -> stock.getProduit().getReference()).collect(Collectors.toSet());
     }
 
     default Set<String> mapEmployes(Set<EmployeEntity> employes) {

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,8 +19,9 @@ public class EntrepotMapperTest {
 
     @Test
     void EntityWithNavigationPropertiesToDTO() {
-        StockEntity stock = StockEntity.builder().id(1L).build();
-        JourneeEntity journee = JourneeEntity.builder().id(1L).build();
+
+        ProduitEntity produit = ProduitEntity.builder().reference("p001").build();
+        StockEntity stock = StockEntity.builder().id(1L).produit(produit).build();
         CamionEntity camion = CamionEntity.builder().immatriculation("AB-123-CD").build();
         EmployeEntity employe = EmployeEntity.builder().trigramme("STR").build();
 
@@ -30,10 +32,17 @@ public class EntrepotMapperTest {
                 .codePostal("38320")
                 .ville("Eybens")
                 .stocks(Set.of(stock))
-                .journees(Set.of(journee))
                 .camions(Set.of(camion))
                 .employes(Set.of(employe))
                 .build();
+
+        JourneeEntity journee = JourneeEntity.builder()
+                .id(1L)
+                .entrepot(entity)
+                .date(LocalDate.of(2024, 1, 1))
+                .build();
+
+        entity.setJournees(Set.of(journee));
 
         EntrepotDTO dto = EntrepotDTO.builder()
                 .nom("Grenis")
@@ -41,8 +50,8 @@ public class EntrepotMapperTest {
                 .adresse("31 rue Pierre Mendes France")
                 .codePostal("38320")
                 .ville("Eybens")
-                .stocks(Set.of(stock.getId()))
-                .journees(Set.of(journee.getId()))
+                .stocks(Set.of(stock.getProduit().getReference()))
+                .journees(Set.of(journee.getReference()))
                 .employes(Set.of(employe.getTrigramme()))
                 .camions(Set.of(camion.getImmatriculation()))
                 .build();
@@ -79,22 +88,10 @@ public class EntrepotMapperTest {
     @Test
     void DTOWithNavigationPropertiesToEntity() {
 
-        StockEntity stock = StockEntity.builder().id(1L).build();
-        JourneeEntity journee = JourneeEntity.builder().id(1L).build();
+        ProduitEntity produit = ProduitEntity.builder().reference("p001").build();
+        StockEntity stock = StockEntity.builder().id(1L).produit(produit).build();
         CamionEntity camion = CamionEntity.builder().immatriculation("AB-123-CD").build();
         EmployeEntity employe = EmployeEntity.builder().trigramme("STR").build();
-
-        EntrepotDTO dto = EntrepotDTO.builder()
-                .nom("Grenis")
-                .lettre("G")
-                .adresse("31 rue Pierre Mendes France")
-                .codePostal("38320")
-                .ville("Eybens")
-                .stocks(Set.of(stock.getId()))
-                .journees(Set.of(journee.getId()))
-                .employes(Set.of(employe.getTrigramme()))
-                .camions(Set.of(camion.getImmatriculation()))
-                .build();
 
         EntrepotEntity entity = EntrepotEntity.builder()
                 .nom("Grenis")
@@ -103,10 +100,29 @@ public class EntrepotMapperTest {
                 .codePostal("38320")
                 .ville("Eybens")
                 .stocks(Set.of(stock))
-                .journees(Set.of(journee))
                 .camions(Set.of(camion))
                 .employes(Set.of(employe))
                 .build();
+
+        EntrepotDTO dto = EntrepotDTO.builder()
+                .nom("Grenis")
+                .lettre("G")
+                .adresse("31 rue Pierre Mendes France")
+                .codePostal("38320")
+                .ville("Eybens")
+                .stocks(Set.of(stock.getProduit().getReference()))
+                .employes(Set.of(employe.getTrigramme()))
+                .camions(Set.of(camion.getImmatriculation()))
+                .build();
+
+        JourneeEntity journee = JourneeEntity.builder()
+                .id(1L)
+                .entrepot(entity)
+                .date(LocalDate.of(2024, 1, 1))
+                .build();
+
+        entity.setJournees(Set.of(journee));
+        dto.setJournees(Set.of(journee.getReference()));
 
         //assertThat(mapper.toEntity(dto)).isEqualTo(entity);
     }

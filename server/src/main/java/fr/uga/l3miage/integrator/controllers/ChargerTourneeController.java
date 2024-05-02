@@ -17,6 +17,6 @@ public class ChargerTourneeController implements ChargerTourneeEndpoints {
 
     @Override
     public VisualiserUneTourneeDTO patchTourneeEtat(String reference, TourneePatchRequest request) {
-        return tourneeMapper.toResponse(service.updateTourneeEtat(reference, request.getEtat()));
+        return tourneeMapper.toDTO(service.updateTourneeEtat(reference, request.getEtat()));
     }
 }

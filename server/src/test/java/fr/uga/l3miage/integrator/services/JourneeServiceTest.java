@@ -1,6 +1,7 @@
 package fr.uga.l3miage.integrator.services;
 
 import fr.uga.l3miage.integrator.enums.EtatsDeJournee;
+import fr.uga.l3miage.integrator.exceptions.rest.NotFoundEntityRestException;
 import fr.uga.l3miage.integrator.models.EntrepotEntity;
 import fr.uga.l3miage.integrator.models.JourneeEntity;
 import fr.uga.l3miage.integrator.repositories.EntrepotRepository;
@@ -13,9 +14,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @AutoConfigureTestDatabase
@@ -35,14 +36,14 @@ public class JourneeServiceTest {
 
         LocalDate date = LocalDate.of(2024, 1, 1);
 
-        assertThat(service.findJourneeByEntrepotAndDate("Grenis", date))
-                .isEqualTo(Optional.empty());
+        assertThrows(NotFoundEntityRestException.class,
+                () -> service.findJourneeByEntrepotAndDate("Grenis", date));
     }
 
     @Test
     void findJourneeByEntrepotAndDateFound() {
-        LocalDate date = LocalDate.of(2024, 1, 1);
         String entrepotNom = "Grenis";
+        LocalDate date = LocalDate.of(2024, 1, 1);
 
         EntrepotEntity entrepot = EntrepotEntity.builder()
                 .nom(entrepotNom)
@@ -61,7 +62,6 @@ public class JourneeServiceTest {
         when(entrepotRepository.findAll()).thenReturn(List.of(entrepot));
         when(journeeRepository.findAll()).thenReturn(List.of(journee));
 
-        assertThat(service.findJourneeByEntrepotAndDate(entrepotNom, date))
-                .isEqualTo(Optional.of(journee));
+        assertThat(service.findJourneeByEntrepotAndDate(entrepotNom, date)).isEqualTo(journee);
     }
 }
