@@ -40,7 +40,7 @@ public class ChargerTourneeControllerTest {
 
     @Test
     void patchTourneeEtatNotFound() throws Exception {
-        final TourneePatchRequest requestObj = TourneePatchRequest.builder().etat(EtatsDeTournee.enChargement).build();
+        final TourneePatchRequest requestObj = TourneePatchRequest.builder().etat(EtatsDeTournee.EN_CHARGEMENT).build();
         final MockHttpServletRequestBuilder request = patch("/api/tournee/t028G-A")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new Gson().toJson(requestObj));

@@ -42,23 +42,23 @@ public class TourneeService {
         if (optTournee.isPresent()) {
             TourneeEntity tournee = optTournee.get();
             switch(etat) {
-                case planifiee -> {}
-                case enChargement -> {}
-                case enParcours -> {
+                case PLANIFIEE -> {}
+                case EN_CHARGEMENT -> {}
+                case EN_PARCOURS -> {
                     for (LivraisonEntity livraison : tournee.getLivraisons()) {
                         for (CommandeEntity commande : livraison.getCommandes()) {
-                            commande.setEtat(EtatsDeCommande.enLivraison);
+                            commande.setEtat(EtatsDeCommande.EN_LIVRAISON);
                             commandeRepository.save(commande);
                         }
-                        livraison.setEtat(EtatsDeLivraison.enParcours);
+                        livraison.setEtat(EtatsDeLivraison.EN_PARCOURS);
                         livraisonRepository.save(livraison);
                     }
                 }
-                case enDechargement -> {}
-                case enClientele -> {}
-                case enMontage -> {}
-                case enRetour -> {}
-                case effectuee -> {}
+                case EN_DECHARGEMENT -> {}
+                case EN_CLIENTELE -> {}
+                case EN_MONTAGE -> {}
+                case EN_RETOUR -> {}
+                case EFFECTUEE -> {}
             }
             tournee.setEtat(etat);
             return tourneeRepository.save(tournee);
