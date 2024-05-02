@@ -40,6 +40,7 @@ public class LivraisonService {
                     livraison.getTournee().setEtat(EtatsDeTournee.EN_DECHARGEMENT);
                     tourneeRepository.save(livraison.getTournee()) ;
 
+
             }
             case  EN_CLIENTELE -> {
                 livraison.getTournee().setEtat(EtatsDeTournee.EN_CLIENTELE);
@@ -51,9 +52,17 @@ public class LivraisonService {
 
             }
             case  EFFECTUEE -> {
+                
+                for (CommandeEntity commande : livraison.getCommandes()) {
+                    commande.setEtat(EtatsDeCommande.LIVREE);
+                    commandeRepository.save(commande);
+                }
+
                 // La derniere livraison de la tournee
+
                 if (livraison.getNumero() == livraison.getTournee().getLivraisons().size()) {
                     livraison.getTournee().setEtat(EtatsDeTournee.EN_RETOUR);
+
                 }else {
                     livraison.getTournee().setEtat(EtatsDeTournee.EN_PARCOURS);
                 }
