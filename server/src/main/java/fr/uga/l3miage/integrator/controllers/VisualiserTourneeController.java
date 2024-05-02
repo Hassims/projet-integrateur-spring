@@ -43,14 +43,9 @@ public class VisualiserTourneeController implements VisualiserTourneeEndpoints {
     }
 
     @Override
-    public JourneeDTO getJourneeByEntrepotAndDate(String nomEntrepot, String date) throws NotFoundEntityRestException  {
-        LocalDate localDate = LocalDate.parse(date) ;
-        Optional<JourneeEntity> journee = journeeService.findJourneeByEntrepotAndDate(nomEntrepot, localDate) ;
-
-        if(journee.isPresent()){
-            return journeeMapper.toDTO(journee.get());
-        }else {
-            throw new NotFoundEntityRestException("Tournée non trouvée");
-        }
+    public JourneeDTO getJourneeByEntrepotAndDate(String nomEntrepot, String date) {
+        return journeeMapper.toDTO(
+                journeeService.findJourneeByEntrepotAndDate(nomEntrepot, LocalDate.parse(date))
+        );
     }
 }

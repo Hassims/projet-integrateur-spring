@@ -18,19 +18,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class JourneeService {
 
-
     private final JourneeComponent journeeComponent;
 
-
-    public Optional<JourneeEntity> findJourneeByEntrepotAndDate(String entrepotNom, LocalDate localDate) throws NotFoundEntityRestException {
-
-        Optional<JourneeEntity> journee = journeeComponent.findByEntrepotNomAndDate(entrepotNom, localDate);
-
-
-        if(journee.isPresent()){
-            return journee ;
-        }else{
-            return Optional.empty() ;
-            }
+    public JourneeEntity findJourneeByEntrepotAndDate(String entrepotNom, LocalDate localDate) {
+        try {
+            return journeeComponent.findByEntrepotNomAndDate(entrepotNom, localDate);
+        } catch(Exception e) {
+            throw new NotFoundEntityRestException("Journée non trouvée");
+        }
     }
 }
