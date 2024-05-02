@@ -14,8 +14,6 @@ import fr.uga.l3miage.integrator.repositories.TourneeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class TourneeService {
@@ -25,46 +23,43 @@ public class TourneeService {
     private final CommandeRepository commandeRepository;
     private final TourneeComponent tourneeComponent;
 
-    public TourneeEntity findTournee(String reference) throws NotFoundEntityRestException {
-        Optional<TourneeEntity> optTournee = tourneeComponent.findByReference(reference);
-
-        if (optTournee.isPresent()) {
-            return optTournee.get();
-        }
-        else {
+    public TourneeEntity findByReference(String reference) {
+        try {
+            return tourneeComponent.findByReference(reference);
+        } catch(Exception e) {
             throw new NotFoundEntityRestException("Tournée non trouvée");
         }
     }
 
-    public TourneeEntity updateTourneeEtat(String reference, EtatsDeTournee etat) throws NotFoundEntityRestException {
-        Optional<TourneeEntity> optTournee = tourneeComponent.findByReference(reference);
+    public TourneeEntity updateTourneeEtat(String reference, EtatsDeTournee etat) {
 
-        if (optTournee.isPresent()) {
-            TourneeEntity tournee = optTournee.get();
-            switch(etat) {
-                case PLANIFIEE -> {}
-                case EN_CHARGEMENT -> {}
-                case EN_PARCOURS -> {
-                    for (LivraisonEntity livraison : tournee.getLivraisons()) {
-                        for (CommandeEntity commande : livraison.getCommandes()) {
-                            commande.setEtat(EtatsDeCommande.EN_LIVRAISON);
-                            commandeRepository.save(commande);
-                        }
-                        livraison.setEtat(EtatsDeLivraison.EN_PARCOURS);
-                        livraisonRepository.save(livraison);
-                    }
-                }
-                case EN_DECHARGEMENT -> {}
-                case EN_CLIENTELE -> {}
-                case EN_MONTAGE -> {}
-                case EN_RETOUR -> {}
-                case EFFECTUEE -> {}
-            }
-            tournee.setEtat(etat);
-            return tourneeRepository.save(tournee);
-        }
-        else {
+        TourneeEntity tournee;
+        try {
+            tournee = tourneeComponent.findByReference(reference);
+        } catch (Exception e) {
             throw new NotFoundEntityRestException("Tournée non trouvée");
         }
+
+        switch(etat) {
+            case PLANIFIEE -> {}
+            case EN_CHARGEMENT -> {}
+            case EN_PARCOURS -> {
+                for (LivraisonEntity livraison : tournee.getLivraisons()) {
+                    for (CommandeEntity commande : livraison.getCommandes()) {
+                        commande.setEtat(EtatsDeCommande.EN_LIVRAISON);
+                        commandeRepository.save(commande);
+                    }
+                    livraison.setEtat(EtatsDeLivraison.EN_PARCOURS);
+                    livraisonRepository.save(livraison);
+                }
+            }
+            case EN_DECHARGEMENT -> {}
+            case EN_CLIENTELE -> {}
+            case EN_MONTAGE -> {}
+            case EN_RETOUR -> {}
+            case EFFECTUEE -> {}
+        }
+        tournee.setEtat(etat);
+        return tourneeRepository.save(tournee);
     }
 }
