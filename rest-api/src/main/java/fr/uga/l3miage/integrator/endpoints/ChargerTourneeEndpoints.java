@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Tag(name = "ChargerTourneeEndpoints")
 @RequestMapping("/api/")
+@CrossOrigin
 public interface ChargerTourneeEndpoints {
 
     @Operation(method = "patch")
