@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @EqualsAndHashCode(exclude = {"lignes"})
+@ToString(exclude = {"lignes"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name ="commande")

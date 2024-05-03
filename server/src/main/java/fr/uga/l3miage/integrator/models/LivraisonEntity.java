@@ -11,6 +11,7 @@ import java.time.LocalTime;
 @Entity
 @Data
 @EqualsAndHashCode(exclude = {"commandes"})
+@ToString(exclude = {"commandes"})
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
