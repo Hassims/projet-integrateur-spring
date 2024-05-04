@@ -1,9 +1,12 @@
  package fr.uga.l3miage.integrator.mappers;
 
 import fr.uga.l3miage.integrator.models.*;
+import fr.uga.l3miage.integrator.response.VisualiserLivraisonDTO;
 import fr.uga.l3miage.integrator.response.VisualiserUneTourneeDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,7 +25,7 @@ public interface TourneeMapper {
         return employes.stream().map(EmployeEntity::getTrigramme).collect(Collectors.toSet());
     }
 
-    default Set<String> mapSetCommande(Set<CommandeEntity> commandes) {
-        return commandes.stream().map(CommandeEntity::getReference).collect(Collectors.toSet());
+    default List<VisualiserLivraisonDTO> mapLivraisons(List<LivraisonEntity> livraisons) {
+        return livraisons.stream().map(l -> Mappers.getMapper(VisualiserLivraisonMapper.class).toDTO(l)).collect(Collectors.toList());
     }
 }
