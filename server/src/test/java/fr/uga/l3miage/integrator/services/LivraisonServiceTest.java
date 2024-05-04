@@ -1,9 +1,11 @@
 package fr.uga.l3miage.integrator.services;
 
 import fr.uga.l3miage.integrator.components.LivraisonComponent;
+import fr.uga.l3miage.integrator.enums.EtatsDeCommande;
 import fr.uga.l3miage.integrator.enums.EtatsDeLivraison;
 import fr.uga.l3miage.integrator.enums.EtatsDeTournee;
 import fr.uga.l3miage.integrator.exceptions.rest.NotFoundEntityRestException;
+import fr.uga.l3miage.integrator.models.CommandeEntity;
 import fr.uga.l3miage.integrator.models.LivraisonEntity;
 import fr.uga.l3miage.integrator.models.TourneeEntity;
 import org.junit.jupiter.api.Test;
@@ -12,7 +14,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -122,7 +126,13 @@ public class LivraisonServiceTest {
                 .tournee(tournee)
                 .build();
 
+        CommandeEntity commande = CommandeEntity.builder()
+                .reference("c001")
+                .dateCreation(LocalDateTime.of(2024, 1, 1, 0, 0, 0))
+                .build();
+
         tournee.setLivraisons(List.of(livraison));
+        livraison.setCommandes(Set.of(commande));
 
         when(livraisonComponent.findByReference(anyString())).thenReturn(livraison);
 
@@ -130,6 +140,7 @@ public class LivraisonServiceTest {
 
         assertThat(tournee.getEtat()).isEqualTo(EtatsDeTournee.EN_RETOUR);
         assertThat(livraison.getEtat()).isEqualTo(EtatsDeLivraison.EFFECTUEE);
+        assertThat(commande.getEtat()).isEqualTo(EtatsDeCommande.LIVREE);
     }
 
     @Test
@@ -152,7 +163,13 @@ public class LivraisonServiceTest {
                 .tournee(tournee)
                 .build();
 
+        CommandeEntity commande = CommandeEntity.builder()
+                .reference("c001")
+                .dateCreation(LocalDateTime.of(2024, 1, 1, 0, 0, 0))
+                .build();
+
         tournee.setLivraisons(List.of(livraison, otherlivraison));
+        livraison.setCommandes(Set.of(commande));
 
         when(livraisonComponent.findByReference(anyString())).thenReturn(livraison);
 
@@ -160,5 +177,6 @@ public class LivraisonServiceTest {
 
         assertThat(tournee.getEtat()).isEqualTo(EtatsDeTournee.EN_PARCOURS);
         assertThat(livraison.getEtat()).isEqualTo(EtatsDeLivraison.EFFECTUEE);
+        assertThat(commande.getEtat()).isEqualTo(EtatsDeCommande.LIVREE);
     }
 }
