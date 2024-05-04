@@ -5,13 +5,13 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
 @Data
 @Builder
 @EqualsAndHashCode(exclude = {"tournees"})
+@ToString(exclude = {"tournees"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name ="journee")
