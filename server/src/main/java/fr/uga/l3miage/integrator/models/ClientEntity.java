@@ -11,6 +11,7 @@ import java.util.Set;
 @Data
 @Builder
 @EqualsAndHashCode(exclude = {"commandes"})
+@ToString(exclude = {"commandes"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name ="client")

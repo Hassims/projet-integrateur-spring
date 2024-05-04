@@ -18,6 +18,7 @@ import java.util.Set;
 @RestController
 @Tag(name = "VisualiserUneTourneeEndpoints")
 @RequestMapping("/api/")
+@CrossOrigin
 public interface VisualiserTourneeEndpoints {
 
     @Operation(description = "Récupère la visualisation d'une tournée.")
