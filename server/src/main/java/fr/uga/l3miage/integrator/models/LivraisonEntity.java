@@ -21,7 +21,7 @@ public class LivraisonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    @Min(0)
+    @Min(1)
     private int numero;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -35,6 +35,6 @@ public class LivraisonEntity {
     private Set<CommandeEntity> commandes;
 
     public String getReference() {
-        return "l"+tournee.getReference()+this.numero;
+        return "l" + tournee.getReference().substring(1) + this.numero;
     }
 }
