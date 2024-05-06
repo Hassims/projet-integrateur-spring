@@ -1,6 +1,7 @@
 package fr.uga.l3miage.integrator.models;
 
 import fr.uga.l3miage.integrator.enums.EtatsDeJournee;
+import fr.uga.l3miage.integrator.enums.EtatsDeTournee;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,7 +32,16 @@ public class JourneeEntity {
         return "j" + day + entrepot.getLettre();
     }
 
-    public EtatsDeJournee getEtat() {
-        return EtatsDeJournee.PLANIFIEE; // TODO selon l'état des tournées
+    public EtatsDeJournee getEtat() {    // TODO à tester
+
+        // SI toutes les tournées sont planifiées
+        if (tournees.stream().allMatch(tournee -> tournee.getEtat() == EtatsDeTournee.PLANIFIEE))
+            return EtatsDeJournee.PLANIFIEE;
+
+        // SINON SI toutes les tournées sont effectuées
+        else if (tournees.stream().allMatch(tournee -> tournee.getEtat() == EtatsDeTournee.EFFECTUEE))
+            return  EtatsDeJournee.EFFECTUEE;
+
+        return EtatsDeJournee.EN_COURS;
     }
 }
