@@ -4,7 +4,7 @@ import fr.uga.l3miage.integrator.enums.EtatsDeTournee;
 import fr.uga.l3miage.integrator.repositories.CommandeRepository;
 import fr.uga.l3miage.integrator.repositories.LivraisonRepository;
 import fr.uga.l3miage.integrator.repositories.TourneeRepository;
-import fr.uga.l3miage.integrator.requests.TourneePatchRequest;
+import fr.uga.l3miage.integrator.requests.TourneePatchEtatRequest;
 import fr.uga.l3miage.integrator.services.TourneeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class ChargerTourneeControllerTest {
 
     @Test
     void patchTourneeEtatNotFound() throws Exception {
-        final TourneePatchRequest requestObj = TourneePatchRequest.builder().etat(EtatsDeTournee.EN_CHARGEMENT).build();
+        final TourneePatchEtatRequest requestObj = TourneePatchEtatRequest.builder().etat(EtatsDeTournee.EN_CHARGEMENT).build();
         final MockHttpServletRequestBuilder request = patch("/api/tournee/t028G-A")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new Gson().toJson(requestObj));
