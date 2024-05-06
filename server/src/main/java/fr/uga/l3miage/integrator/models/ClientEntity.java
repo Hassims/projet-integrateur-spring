@@ -1,5 +1,6 @@
 package fr.uga.l3miage.integrator.models;
 
+import fr.uga.l3miage.integrator.enums.EtatsDeClient;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,4 +33,23 @@ public class ClientEntity {
     private String ville;
     @OneToMany(mappedBy="client")
     private Set<CommandeEntity> commandes;
+
+    public EtatsDeClient getEtat() {
+
+        EtatsDeClient etat = EtatsDeClient.INSCRIT;
+
+        if (commandes != null && !commandes.isEmpty()) {
+            etat = EtatsDeClient.LIVRE;
+            for (CommandeEntity c : commandes) {
+                switch (c.getEtat()) {
+                    case PLANIFIEE, EN_LIVRAISON -> {
+                        if (etat == EtatsDeClient.LIVRE)
+                            etat = EtatsDeClient.A_LIVRER;
+                    }
+                    case OUVERTE -> etat = EtatsDeClient.LIVRABLE;
+                }
+            }
+        }
+        return etat;
+    }
 }
