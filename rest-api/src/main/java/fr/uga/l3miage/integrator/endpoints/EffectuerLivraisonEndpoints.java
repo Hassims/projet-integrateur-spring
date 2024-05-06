@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Tag(name = "EffectuerLivraisonEndpoints")
 @RequestMapping("/api/")
+@CrossOrigin
 public interface EffectuerLivraisonEndpoints {
     @Operation(method = "patch")
     @ApiResponse(responseCode= "200", description = "Livraison modifiée.")

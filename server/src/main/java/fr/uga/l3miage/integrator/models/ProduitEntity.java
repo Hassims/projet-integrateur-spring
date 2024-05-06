@@ -10,6 +10,7 @@ import java.util.Set;
 @Data
 @Builder
 @EqualsAndHashCode(exclude = {"lignes", "stocks"})
+@ToString(exclude = {"lignes", "stocks"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name ="produit")

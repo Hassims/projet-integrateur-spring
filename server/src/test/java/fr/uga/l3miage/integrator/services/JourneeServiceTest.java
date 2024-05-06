@@ -17,6 +17,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @AutoConfigureTestDatabase
@@ -60,7 +62,7 @@ public class JourneeServiceTest {
                 .entrepot(entrepot).build();
 
         when(entrepotRepository.findAll()).thenReturn(List.of(entrepot));
-        when(journeeRepository.findAll()).thenReturn(List.of(journee));
+        when(journeeRepository.findByEntrepot_NomAndDateEquals(anyString(), any(LocalDate.class))).thenReturn(journee);
 
         assertThat(service.findJourneeByEntrepotAndDate(entrepotNom, date)).isEqualTo(journee);
     }
