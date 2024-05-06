@@ -55,7 +55,7 @@ public class JourneeRepositoryTest {
 
         String nomEntrepot = findbyEntrepot.getNom() ;
 
-        JourneeEntity resultat = journeeRepository.findByEntrepotNomAndDate(nomEntrepot,findbyjournee.getDate()) ;
+        JourneeEntity resultat = journeeRepository.findByEntrepot_NomAndDateEquals(nomEntrepot,findbyjournee.getDate()) ;
 
         assertThat(resultat).isEqualTo(findbyjournee) ;
 
