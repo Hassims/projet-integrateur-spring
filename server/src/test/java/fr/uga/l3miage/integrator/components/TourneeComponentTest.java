@@ -1,6 +1,5 @@
 package fr.uga.l3miage.integrator.components;
 
-import fr.uga.l3miage.integrator.components.TourneeComponent;
 import fr.uga.l3miage.integrator.models.EntrepotEntity;
 import fr.uga.l3miage.integrator.models.JourneeEntity;
 import fr.uga.l3miage.integrator.models.TourneeEntity;
