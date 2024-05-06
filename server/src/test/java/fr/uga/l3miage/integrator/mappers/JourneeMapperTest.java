@@ -4,6 +4,7 @@ import fr.uga.l3miage.integrator.enums.EtatsDeJournee;
 import fr.uga.l3miage.integrator.models.*;
 import fr.uga.l3miage.integrator.response.JourneeDTO;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -12,11 +13,9 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
 public class JourneeMapperTest {
 
-    @Autowired
-    private JourneeMapper mapper;
+    private final JourneeMapper mapper = Mappers.getMapper(JourneeMapper.class);
 
     @Test
     void EntityToDTO() {

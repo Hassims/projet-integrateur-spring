@@ -3,6 +3,7 @@ package fr.uga.l3miage.integrator.mappers;
 import fr.uga.l3miage.integrator.models.*;
 import fr.uga.l3miage.integrator.response.EntrepotDTO;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,11 +12,9 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
 public class EntrepotMapperTest {
 
-    @Autowired
-    private EntrepotMapper mapper;
+    private final EntrepotMapper mapper = Mappers.getMapper(EntrepotMapper.class);
 
     @Test
     void EntityWithNavigationPropertiesToDTO() {
