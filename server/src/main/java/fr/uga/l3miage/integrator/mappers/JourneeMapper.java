@@ -24,4 +24,10 @@ public interface JourneeMapper {
     default String mapEntrepot(EntrepotEntity entrepot) {
         return entrepot.getNom();
     }
+    default double getMontant(JourneeEntity journee){
+        return journee.getMontant() ;
+    }
+    default Integer getTempsMontageTheorique(JourneeEntity journee){
+        return journee.getTempsMontageTheorique() ; 
+    }
 }
