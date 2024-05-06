@@ -19,9 +19,6 @@ public class JourneeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private EtatsDeJournee etat;
     @Column(nullable = false, columnDefinition = "DATE")
     private LocalDate date;
     @OneToMany(mappedBy="journee")
@@ -32,5 +29,9 @@ public class JourneeEntity {
     public String getReference() {
         String day = String.format("%03d", date.getDayOfYear());
         return "j" + day + entrepot.getLettre();
+    }
+
+    public EtatsDeJournee getEtat() {
+        return EtatsDeJournee.PLANIFIEE; // TODO selon l'état des tournées
     }
 }

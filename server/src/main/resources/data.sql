@@ -263,10 +263,10 @@ INSERT INTO employe (trigramme, prenom, nom, telephone, emploi, entrepot_nom) VA
                                                                                   ('RNI', 'robert', 'NULI', '0609856325', 'LIVREUR', 'Albis'),
                                                                                   ('ABM', 'ahmed', 'BOTOM', '0621211852', 'PLANIFICATEUR', 'Valis');
 
-INSERT INTO journee (etat, date, entrepot_nom) VALUES
-                                                   ('PLANIFIEE', '2025-01-01', 'Grenis'),
-                                                   ('PLANIFIEE', '2025-01-02', 'Bronis'),
-                                                   ('PLANIFIEE', '2025-01-03', 'Albis');
+INSERT INTO journee (date, entrepot_nom) VALUES
+                                             ('2025-01-01', 'Grenis'),
+                                             ('2025-01-02', 'Bronis'),
+                                             ('2025-01-03', 'Albis');
 
 INSERT INTO tournee (etat, lettre, camion_immatriculation, journee_id) VALUES
                                                                            ('PLANIFIEE', 'A', 'AB-123-CD', 1),
@@ -1436,4 +1436,3 @@ INSERT INTO stock (quantite, produit_reference, entrepot_nom) VALUES
                                                                   (100, 'p20', 'Valis'),
                                                                   (100, 'p21', 'Valis'),
                                                                   (100, 'p22', 'Valis');
-
