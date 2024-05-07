@@ -1,14 +1,14 @@
 package fr.uga.l3miage.integrator.mappers;
 
 import fr.uga.l3miage.integrator.enums.EtatsDeJournee;
+import fr.uga.l3miage.integrator.enums.EtatsDeTournee;
 import fr.uga.l3miage.integrator.models.*;
 import fr.uga.l3miage.integrator.response.JourneeDTO;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,14 +33,37 @@ public class JourneeMapperTest {
 
         JourneeEntity entity = JourneeEntity.builder()
                 .date(date)
-                .etat(etat)
                 .entrepot(entrepot)
                 .build();
 
         TourneeEntity tournee = TourneeEntity.builder()
                 .lettre("A")
+                .etat(EtatsDeTournee.PLANIFIEE)
                 .journee(entity)
                 .build();
+
+        LivraisonEntity livraison = LivraisonEntity.builder()
+                .tournee(tournee)
+                .build();
+
+        CommandeEntity commande = CommandeEntity.builder()
+                .livraison(livraison)
+                .build();
+
+        ProduitEntity produit = ProduitEntity.builder()
+                .prix(9.99)
+                .tdmTheorique(5)
+                .build();
+
+        LigneEntity ligne = LigneEntity.builder()
+                .quantite(3)
+                .commande(commande)
+                .produit(produit)
+                .build();
+
+        tournee.setLivraisons(List.of(livraison));
+        livraison.setCommandes(Set.of(commande));
+        commande.setLignes(Set.of(ligne));
 
         entity.setTournees(Set.of(tournee));
 
@@ -48,6 +71,8 @@ public class JourneeMapperTest {
                 .reference(entity.getReference())
                 .etat(etat)
                 .date(date)
+                .montant(entity.getMontant())
+                .tempsMontageTheorique(entity.getTempsMontageTheorique())
                 .entrepot(entrepot.getNom())
                 .tournees(Set.of(tournee.getReference()))
                 .build();
