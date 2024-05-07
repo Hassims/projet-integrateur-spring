@@ -32,6 +32,13 @@ public class JourneeEntity {
         return "j" + day + entrepot.getLettre();
     }
 
+    public double getMontant() {
+        return tournees.stream().map(TourneeEntity::getMontant).reduce(0.0, Double::sum);
+    }
+
+    public Integer getTempsMontageTheorique() {
+        return tournees.stream().map(TourneeEntity::getTempsMontageTheorique).reduce(0, Integer::sum);
+
     public EtatsDeJournee getEtat() {    // TODO à tester
 
         // SI toutes les tournées sont planifiées
