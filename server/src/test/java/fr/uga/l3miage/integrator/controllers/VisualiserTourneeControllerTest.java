@@ -45,7 +45,6 @@ public class VisualiserTourneeControllerTest {
     @Autowired
     private CamionRepository camionRepository ;
 
-
     @Autowired
     private EntrepotMapper entrepotMapper;
 
@@ -102,17 +101,20 @@ public class VisualiserTourneeControllerTest {
         EntrepotEntity entrepot = EntrepotEntity.builder()
                 .nom("Grenis").lettre("G").adresse("").codePostal("00000").ville("").build();
 
+        entrepotRepository.save(entrepot);
+
         JourneeEntity journee = JourneeEntity.builder()
-                .id(1L)
                 .entrepot(entrepot)
                 .date(LocalDate.of(2024, 1 ,1))
                 .etat(EtatsDeJournee.PLANIFIEE)
                 .build();
 
-        entrepotRepository.save(entrepot);
-        journeeRepository.save(journee);
+        entrepot.setJournees(Set.of(journee));
 
-        //mockMvc.perform(get("/entrepot/Grenis/journee/2024-01-01")).andExpect(status().isOk());
+        journeeRepository.save(journee);
+        entrepotRepository.save(entrepot);
+
+        mockMvc.perform(get("/entrepot/Grenis/journee/2024-01-01"));
     }
 
     @Test

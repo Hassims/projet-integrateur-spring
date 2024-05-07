@@ -11,6 +11,7 @@ import java.util.Set;
 @Data
 @Builder
 @EqualsAndHashCode(exclude = {"tournees"})
+@ToString(exclude = {"tournees"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name ="employe")

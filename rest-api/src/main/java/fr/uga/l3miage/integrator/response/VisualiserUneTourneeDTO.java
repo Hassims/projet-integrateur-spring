@@ -29,5 +29,5 @@ public class VisualiserUneTourneeDTO {
     @Schema(description = "Immatriculation du camion utilisé pour effectuer la tournée.", example = "AB-123-CD")
     private String camion;
     @Schema(description = "Liste ordonnée des livraisons à effectuer lors de la tournée.")
-    private List<LivraisonDTO> livraisons;
+    private List<VisualiserLivraisonDTO> livraisons;
 }

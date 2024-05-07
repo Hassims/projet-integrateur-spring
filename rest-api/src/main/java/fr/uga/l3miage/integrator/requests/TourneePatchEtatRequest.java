@@ -2,13 +2,16 @@ package fr.uga.l3miage.integrator.requests;
 
 import fr.uga.l3miage.integrator.enums.EtatsDeTournee;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@Schema(description = "Requête visant à mettre à jour l'état ou la lettre d'une tournée.")
-public class TourneePatchRequest {
+@Schema(description = "Requête visant à mettre à jour l'état d'une tournée.")
+@AllArgsConstructor
+@NoArgsConstructor(force = true)
+public class TourneePatchEtatRequest {
     private final EtatsDeTournee etat;
-    private final String lettre;
 }
