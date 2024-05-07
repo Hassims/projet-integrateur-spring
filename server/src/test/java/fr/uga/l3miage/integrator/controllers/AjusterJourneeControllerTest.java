@@ -40,9 +40,9 @@ public class AjusterJourneeControllerTest {
         entrepotRepository.deleteAll();
     }
 
-    private final Gson gson = new GsonBuilder()
+    Gson gson = new GsonBuilder()
             .setPrettyPrinting()
-            .excludeFieldsWithoutExposeAnnotation()
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
             .create();
 
     @Test
