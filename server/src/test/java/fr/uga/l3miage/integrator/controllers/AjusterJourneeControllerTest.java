@@ -66,6 +66,7 @@ public class AjusterJourneeControllerTest {
                 .codePostal("00000")
                 .build();
 
+        entrepotRepository.save(entrepot);
         LocalDate date = LocalDate.of(2024, 1, 1);
 
         JourneeEntity journee = JourneeEntity.builder()
@@ -73,7 +74,7 @@ public class AjusterJourneeControllerTest {
                 .entrepot(entrepot)
                 .build();
 
-        entrepotRepository.save(entrepot);
+
         journeeRepository.save(journee);
 
         final JourneePatchDateRequest requestObj = JourneePatchDateRequest.builder().date(LocalDate.now()).build();
