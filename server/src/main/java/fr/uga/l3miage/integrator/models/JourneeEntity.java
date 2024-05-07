@@ -1,6 +1,7 @@
 package fr.uga.l3miage.integrator.models;
 
 import fr.uga.l3miage.integrator.enums.EtatsDeJournee;
+import fr.uga.l3miage.integrator.enums.EtatsDeTournee;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,9 +20,6 @@ public class JourneeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private EtatsDeJournee etat;
     @Column(nullable = false, columnDefinition = "DATE")
     private LocalDate date;
     @OneToMany(mappedBy="journee")
@@ -40,5 +38,17 @@ public class JourneeEntity {
 
     public Integer getTempsMontageTheorique() {
         return tournees.stream().map(TourneeEntity::getTempsMontageTheorique).reduce(0, Integer::sum);
+
+    public EtatsDeJournee getEtat() {    // TODO à tester
+
+        // SI toutes les tournées sont planifiées
+        if (tournees.stream().allMatch(tournee -> tournee.getEtat() == EtatsDeTournee.PLANIFIEE))
+            return EtatsDeJournee.PLANIFIEE;
+
+        // SINON SI toutes les tournées sont effectuées
+        else if (tournees.stream().allMatch(tournee -> tournee.getEtat() == EtatsDeTournee.EFFECTUEE))
+            return  EtatsDeJournee.EFFECTUEE;
+
+        return EtatsDeJournee.EN_COURS;
     }
 }
