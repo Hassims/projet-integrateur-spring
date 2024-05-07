@@ -6,6 +6,7 @@ import fr.uga.l3miage.integrator.enums.EtatsDeLivraison;
 import fr.uga.l3miage.integrator.enums.EtatsDeTournee;
 import fr.uga.l3miage.integrator.exceptions.rest.NotFoundEntityRestException;
 import fr.uga.l3miage.integrator.models.CommandeEntity;
+import fr.uga.l3miage.integrator.models.JourneeEntity;
 import fr.uga.l3miage.integrator.models.LivraisonEntity;
 import fr.uga.l3miage.integrator.models.TourneeEntity;
 import fr.uga.l3miage.integrator.repositories.CommandeRepository;
@@ -13,6 +14,8 @@ import fr.uga.l3miage.integrator.repositories.LivraisonRepository;
 import fr.uga.l3miage.integrator.repositories.TourneeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 
 @Service
@@ -58,5 +61,19 @@ public class LivraisonService {
 
         livraison.setEtat(etat);
         return livraisonRepository.save(livraison) ;
+    }
+
+
+    public LivraisonEntity updateLivraisonNumero(String reference, int numero ) {
+
+        LivraisonEntity livraison ;
+        try {
+            livraison = livraisonComponent.findByReference(reference);
+        } catch (Exception e) {
+            throw new NotFoundEntityRestException("Livraison non trouvée");
+        }
+
+        livraison.setNumero(numero);
+        return livraisonRepository.save(livraison);
     }
 }
