@@ -37,4 +37,12 @@ public class LivraisonEntity {
     public String getReference() {
         return "l" + tournee.getReference().substring(1) + this.numero;
     }
+
+    public double getMontant() {
+        return commandes.stream().map(CommandeEntity::getMontant).reduce(0.0, Double::sum);
+    }
+
+    public Integer getTempsMontageTheorique() {
+        return commandes.stream().map(CommandeEntity::getTempsMontageTheorique).reduce(0, Integer::sum);
+    }
 }

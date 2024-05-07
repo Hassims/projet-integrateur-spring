@@ -33,4 +33,12 @@ public class JourneeEntity {
         String day = String.format("%03d", date.getDayOfYear());
         return "j" + day + entrepot.getLettre();
     }
+
+    public double getMontant() {
+        return tournees.stream().map(TourneeEntity::getMontant).reduce(0.0, Double::sum);
+    }
+
+    public Integer getTempsMontageTheorique() {
+        return tournees.stream().map(TourneeEntity::getTempsMontageTheorique).reduce(0, Integer::sum);
+    }
 }

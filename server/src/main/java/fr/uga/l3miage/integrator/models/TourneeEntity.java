@@ -39,4 +39,12 @@ public class TourneeEntity {
     public String getReference() {
         return "t" + journee.getReference().substring(1) + "-" + lettre;
     }
+
+    public double getMontant() {
+        return livraisons.stream().map(LivraisonEntity::getMontant).reduce(0.0, Double::sum);
+    }
+
+    public Integer getTempsMontageTheorique() {
+        return livraisons.stream().map(LivraisonEntity::getTempsMontageTheorique).reduce(0, Integer::sum);
+    }
 }
