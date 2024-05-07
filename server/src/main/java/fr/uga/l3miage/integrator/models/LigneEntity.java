@@ -27,4 +27,12 @@ public class LigneEntity {
     private CommandeEntity commande;
     @ManyToOne
     private ProduitEntity produit;
+
+    public double getMontant() {
+        return quantite * produit.getPrix();
+    }
+
+    public Integer getTempsMontageTheorique() {
+        return quantite * produit.getTdmTheorique();
+    }
 }
