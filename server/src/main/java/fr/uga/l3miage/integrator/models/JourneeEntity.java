@@ -38,6 +38,7 @@ public class JourneeEntity {
 
     public Integer getTempsMontageTheorique() {
         return tournees.stream().map(TourneeEntity::getTempsMontageTheorique).reduce(0, Integer::sum);
+    }
 
     public EtatsDeJournee getEtat() {    // TODO à tester
 
