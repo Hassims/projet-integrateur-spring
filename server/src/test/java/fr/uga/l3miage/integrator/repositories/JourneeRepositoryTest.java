@@ -48,7 +48,6 @@ public class JourneeRepositoryTest {
                 .id(1L)
                 .entrepot(findbyEntrepot)
                 .date(LocalDate.of(2024, 1 ,1))
-                .etat(EtatsDeJournee.PLANIFIEE)
                 .build();
         journeeRepository.save(findbyjournee) ;
 

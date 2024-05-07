@@ -57,7 +57,7 @@ public class EffectuerLivraisonControllerTest {
         entrepotRepository.deleteAll();
     }
 
-    LivraisonEntity populateDB(EtatsDeJournee etatJournee, EtatsDeTournee etatTournee, EtatsDeLivraison etatLivraison, EtatsDeCommande etatCommande) {
+    LivraisonEntity populateDB(EtatsDeTournee etatTournee, EtatsDeLivraison etatLivraison, EtatsDeCommande etatCommande) {
         EntrepotEntity entrepot = EntrepotEntity.builder()
                 .nom("Grenis")
                 .lettre("G")
@@ -67,7 +67,6 @@ public class EffectuerLivraisonControllerTest {
                 .build();
 
         JourneeEntity journee = JourneeEntity.builder()
-                .etat(etatJournee)
                 .date(LocalDate.of(2024, 1, 1))
                 .entrepot(entrepot)
                 .build();
@@ -128,7 +127,6 @@ public class EffectuerLivraisonControllerTest {
     void patchEtatEnDechargement() throws Exception {
 
         LivraisonEntity livraison = populateDB(
-                EtatsDeJournee.EN_COURS,
                 EtatsDeTournee.EN_PARCOURS,
                 EtatsDeLivraison.EN_PARCOURS,
                 EtatsDeCommande.EN_LIVRAISON
@@ -154,7 +152,6 @@ public class EffectuerLivraisonControllerTest {
     void patchEtatEnClientele() throws Exception {
 
         LivraisonEntity livraison = populateDB(
-                EtatsDeJournee.EN_COURS,
                 EtatsDeTournee.EN_DECHARGEMENT,
                 EtatsDeLivraison.EN_DECHARGEMENT,
                 EtatsDeCommande.EN_LIVRAISON
@@ -178,7 +175,6 @@ public class EffectuerLivraisonControllerTest {
     void patchEtatEnMontage() throws Exception {
 
         LivraisonEntity livraison = populateDB(
-                EtatsDeJournee.EN_COURS,
                 EtatsDeTournee.EN_CLIENTELE,
                 EtatsDeLivraison.EN_CLIENTELE,
                 EtatsDeCommande.EN_LIVRAISON
@@ -202,7 +198,6 @@ public class EffectuerLivraisonControllerTest {
     void patchEtatEffectuee() throws Exception {
 
         LivraisonEntity livraison = populateDB(
-                EtatsDeJournee.EN_COURS,
                 EtatsDeTournee.EN_CLIENTELE,
                 EtatsDeLivraison.EN_CLIENTELE,
                 EtatsDeCommande.EN_LIVRAISON

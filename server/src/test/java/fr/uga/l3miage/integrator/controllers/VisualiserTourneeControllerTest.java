@@ -106,7 +106,6 @@ public class VisualiserTourneeControllerTest {
         JourneeEntity journee = JourneeEntity.builder()
                 .entrepot(entrepot)
                 .date(LocalDate.of(2024, 1 ,1))
-                .etat(EtatsDeJournee.PLANIFIEE)
                 .build();
 
         entrepot.setJournees(Set.of(journee));
@@ -136,7 +135,6 @@ public class VisualiserTourneeControllerTest {
 
 
         JourneeEntity visuJournee = JourneeEntity.builder()
-                .etat(EtatsDeJournee.PLANIFIEE)
                 .entrepot(visuEntrepot)
                 .date(LocalDate.of(2024,1,28))
                 .build();
