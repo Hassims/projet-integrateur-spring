@@ -10,7 +10,6 @@ import fr.uga.l3miage.integrator.requests.TourneePatchJourneeRequest;
 import fr.uga.l3miage.integrator.response.JourneeDTO;
 import fr.uga.l3miage.integrator.response.LivraisonDTO;
 import fr.uga.l3miage.integrator.response.TourneeDTO;
-import fr.uga.l3miage.integrator.response.VisualiserUneTourneeDTO;
 import fr.uga.l3miage.integrator.services.JourneeService;
 import fr.uga.l3miage.integrator.services.LivraisonService;
 import fr.uga.l3miage.integrator.services.TourneeService;
@@ -37,8 +36,8 @@ public class AjusterJourneeController implements AjusterJourneeEndpoints {
 
     @Override
     public TourneeDTO patchTournee_Journee(String reference, TourneePatchJourneeRequest request) {
-        //return tourneeMapper.toDTO(tourneeService.updateTourneeJournee(reference, request.getJournee()));
-        return null ;
+        return tourneeMapper.toDTO(tourneeService.updateTourneeJournee(reference, request.getJournee()));
+
     }
 
     @Override
