@@ -2,19 +2,18 @@ package fr.uga.l3miage.integrator.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import fr.uga.l3miage.integrator.repositories.CommandeRepository;
-import fr.uga.l3miage.integrator.repositories.LivraisonRepository;
-import fr.uga.l3miage.integrator.repositories.TourneeRepository;
+import fr.uga.l3miage.integrator.models.EntrepotEntity;
+import fr.uga.l3miage.integrator.models.JourneeEntity;
+import fr.uga.l3miage.integrator.repositories.*;
 import fr.uga.l3miage.integrator.requests.JourneePatchDateRequest;
 import fr.uga.l3miage.integrator.requests.LivraisonPatchNumeroRequest;
 import fr.uga.l3miage.integrator.requests.TourneePatchJourneeRequest;
-import fr.uga.l3miage.integrator.services.TourneeService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -30,14 +29,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AjusterJourneeControllerTest {
     @Autowired
     private MockMvc mockMvc;
-    @SpyBean
-    private TourneeService service;
     @Autowired
-    private TourneeRepository tourneeRepository;
+    private EntrepotRepository entrepotRepository;
     @Autowired
-    private LivraisonRepository livraisonRepository;
-    @Autowired
-    private CommandeRepository commandeRepository;
+    private JourneeRepository journeeRepository;
+
+    @AfterEach
+    void clean() {
+        journeeRepository.deleteAll();
+        entrepotRepository.deleteAll();
+    }
 
     private final Gson gson = new GsonBuilder()
             .setPrettyPrinting()
@@ -52,6 +53,35 @@ public class AjusterJourneeControllerTest {
                 .content(gson.toJson(requestObj));
 
         mockMvc.perform(request).andExpect(status().isNotFound());
+    }
+
+    @Test
+    void patchJournee_DateFound() throws Exception {
+
+        EntrepotEntity entrepot = EntrepotEntity.builder()
+                .nom("Grenis")
+                .lettre("G")
+                .adresse("")
+                .ville("")
+                .codePostal("00000")
+                .build();
+
+        LocalDate date = LocalDate.of(2024, 1, 1);
+
+        JourneeEntity journee = JourneeEntity.builder()
+                .date(date)
+                .entrepot(entrepot)
+                .build();
+
+        entrepotRepository.save(entrepot);
+        journeeRepository.save(journee);
+
+        final JourneePatchDateRequest requestObj = JourneePatchDateRequest.builder().date(LocalDate.now()).build();
+        final MockHttpServletRequestBuilder request = patch("/api/journee/j001G/date")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(gson.toJson(requestObj));
+
+        mockMvc.perform(request).andExpect(status().isOk());
     }
 
     @Test
