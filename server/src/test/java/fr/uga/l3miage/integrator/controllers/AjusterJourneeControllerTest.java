@@ -2,8 +2,12 @@ package fr.uga.l3miage.integrator.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import fr.uga.l3miage.integrator.enums.EtatsDeLivraison;
+import fr.uga.l3miage.integrator.enums.EtatsDeTournee;
 import fr.uga.l3miage.integrator.models.EntrepotEntity;
 import fr.uga.l3miage.integrator.models.JourneeEntity;
+import fr.uga.l3miage.integrator.models.LivraisonEntity;
+import fr.uga.l3miage.integrator.models.TourneeEntity;
 import fr.uga.l3miage.integrator.repositories.*;
 import fr.uga.l3miage.integrator.requests.JourneePatchDateRequest;
 import fr.uga.l3miage.integrator.requests.LivraisonPatchNumeroRequest;
@@ -33,9 +37,15 @@ public class AjusterJourneeControllerTest {
     private EntrepotRepository entrepotRepository;
     @Autowired
     private JourneeRepository journeeRepository;
+    @Autowired
+    private TourneeRepository tourneeRepository;
+    @Autowired
+    private LivraisonRepository livraisonRepository;
 
     @AfterEach
     void clean() {
+        livraisonRepository.deleteAll();
+        tourneeRepository.deleteAll();
         journeeRepository.deleteAll();
         entrepotRepository.deleteAll();
     }
@@ -74,7 +84,6 @@ public class AjusterJourneeControllerTest {
                 .entrepot(entrepot)
                 .build();
 
-
         journeeRepository.save(journee);
 
         final JourneePatchDateRequest requestObj = JourneePatchDateRequest.builder().date(LocalDate.now()).build();
@@ -96,6 +105,40 @@ public class AjusterJourneeControllerTest {
     }
 
     @Test
+    void patchTournee_JourneeFound() throws Exception {
+
+        EntrepotEntity entrepot = EntrepotEntity.builder()
+                .nom("Grenis")
+                .lettre("G")
+                .adresse("")
+                .ville("")
+                .codePostal("00000")
+                .build();
+
+        JourneeEntity journee = JourneeEntity.builder()
+                .date(LocalDate.now())
+                .entrepot(entrepot)
+                .build();
+
+        TourneeEntity tournee = TourneeEntity.builder()
+                .lettre("A")
+                .etat(EtatsDeTournee.PLANIFIEE)
+                .journee(journee)
+                .build();
+
+        entrepotRepository.save(entrepot);
+        journeeRepository.save(journee);
+        tourneeRepository.save(tournee);
+
+        final LivraisonPatchNumeroRequest requestObj = LivraisonPatchNumeroRequest.builder().numero(2).build();
+        final MockHttpServletRequestBuilder request = patch("/api/tournee/t001G-A/journee")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(gson.toJson(requestObj));
+
+        mockMvc.perform(request).andExpect(status().isOk());
+    }
+
+    @Test
     void patchLivraison_NumeroNotFound() throws Exception {
         final LivraisonPatchNumeroRequest requestObj = LivraisonPatchNumeroRequest.builder().numero(2).build();
         final MockHttpServletRequestBuilder request = patch("/api/livraison/l001G-A1")
@@ -103,5 +146,23 @@ public class AjusterJourneeControllerTest {
                 .content(gson.toJson(requestObj));
 
         mockMvc.perform(request).andExpect(status().isNotFound());
+    }
+
+    @Test
+    void patchLivraison_NumeroFound() throws Exception {
+
+        LivraisonEntity livraison = LivraisonEntity.builder()
+                .numero(1)
+                .etat(EtatsDeLivraison.PLANIFIEE)
+                .build();
+
+        livraisonRepository.save(livraison);
+
+        final LivraisonPatchNumeroRequest requestObj = LivraisonPatchNumeroRequest.builder().numero(2).build();
+        final MockHttpServletRequestBuilder request = patch("/api/livraison/j001G")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(gson.toJson(requestObj));
+
+        mockMvc.perform(request).andExpect(status().isOk());
     }
 }
