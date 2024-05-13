@@ -57,7 +57,6 @@ public class JourneeServiceTest {
 
         JourneeEntity journee = JourneeEntity.builder()
                 .id(1L)
-                .etat(EtatsDeJournee.PLANIFIEE)
                 .date(date)
                 .entrepot(entrepot).build();
 

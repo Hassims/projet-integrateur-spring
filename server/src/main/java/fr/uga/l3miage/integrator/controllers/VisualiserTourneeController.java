@@ -1,11 +1,9 @@
 package fr.uga.l3miage.integrator.controllers;
 
 import fr.uga.l3miage.integrator.endpoints.VisualiserTourneeEndpoints;
-import fr.uga.l3miage.integrator.exceptions.rest.NotFoundEntityRestException;
 import fr.uga.l3miage.integrator.mappers.EntrepotMapper;
 import fr.uga.l3miage.integrator.mappers.JourneeMapper;
-import fr.uga.l3miage.integrator.mappers.TourneeMapper;
-import fr.uga.l3miage.integrator.models.JourneeEntity;
+import fr.uga.l3miage.integrator.mappers.VisualiserTourneeMapper;
 import fr.uga.l3miage.integrator.response.EntrepotDTO;
 import fr.uga.l3miage.integrator.response.JourneeDTO;
 import fr.uga.l3miage.integrator.response.VisualiserUneTourneeDTO;
@@ -27,7 +25,7 @@ public class VisualiserTourneeController implements VisualiserTourneeEndpoints {
     private final EntrepotService entrepotService;
     private final JourneeService journeeService;
     private final TourneeService tourneeService;
-    private final TourneeMapper tourneeMapper;
+    private final VisualiserTourneeMapper tourneeMapper;
     private final EntrepotMapper entrepotMapper;
     private final JourneeMapper journeeMapper ;
 
