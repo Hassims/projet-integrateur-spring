@@ -44,6 +44,8 @@ public class CommandeEntity {
     }
 
     public Integer getTempsMontageTheorique() {
-        return lignes.stream().map(LigneEntity::getTempsMontageTheorique).reduce(0, Integer::sum);
+        return lignes.stream()
+                .map(LigneEntity::getTempsMontageTheorique)
+                .reduce(0, (a, b) -> a + (b == null ? 0 : b));
     }
 }

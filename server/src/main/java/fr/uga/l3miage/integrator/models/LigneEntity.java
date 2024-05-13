@@ -33,6 +33,6 @@ public class LigneEntity {
     }
 
     public Integer getTempsMontageTheorique() {
-        return quantite * produit.getTdmTheorique();
+        return produit.getTdmTheorique() == null ? null : quantite * produit.getTdmTheorique();
     }
 }
