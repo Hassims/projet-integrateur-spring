@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CommandeRepository extends JpaRepository<CommandeEntity, String> {
+    CommandeEntity findByReference(String reference);
 }
