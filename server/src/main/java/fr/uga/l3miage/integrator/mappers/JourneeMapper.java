@@ -13,6 +13,8 @@ import java.util.Set;
 public interface JourneeMapper {
     JourneeDTO toDTO(JourneeEntity journee);
 
+    Set<JourneeDTO> toSetDTO(Set<JourneeEntity> journeeEntitySet);
+
     default Set<String> mapTournees(Set<TourneeEntity> tournees) {
         Set<String> references = new HashSet<>();
         for (TourneeEntity tournee : tournees) {
