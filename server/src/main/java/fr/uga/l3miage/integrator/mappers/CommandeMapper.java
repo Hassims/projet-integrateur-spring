@@ -2,10 +2,12 @@ package fr.uga.l3miage.integrator.mappers;
 
 import fr.uga.l3miage.integrator.models.ClientEntity;
 import fr.uga.l3miage.integrator.models.CommandeEntity;
+import fr.uga.l3miage.integrator.models.LigneEntity;
 import fr.uga.l3miage.integrator.models.LivraisonEntity;
 import fr.uga.l3miage.integrator.response.CommandeDTO;
 import org.mapstruct.Mapper;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Mapper

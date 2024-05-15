@@ -79,6 +79,7 @@ public class VisualiserLivraisonMapperTest {
         VisualiserLivraisonDTO dto = VisualiserLivraisonDTO.builder()
                 .reference("l001G-A1")
                 .numero(1)
+                .etat(EtatsDeLivraison.PLANIFIEE)
                 .client(clientDTO)
                 .commandes(Set.of(commande.getReference()))
                 .build();
