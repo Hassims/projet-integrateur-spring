@@ -15,6 +15,7 @@ public class VisualiserLivraisonMapper {
         return VisualiserLivraisonDTO.builder()
                 .reference(entity.getReference())
                 .numero(entity.getNumero())
+                .etat(entity.getEtat())
                 .client(Mappers.getMapper(ClientMapper.class)
                         .toDto(entity.getCommandes().isEmpty() ?
                                 null :

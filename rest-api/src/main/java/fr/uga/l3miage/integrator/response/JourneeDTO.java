@@ -26,4 +26,8 @@ public class JourneeDTO {
     private String entrepot;
     @Schema(description = "Ensemble des références des tournées planifiées pour la journée.", example = "[\"t001G-A\", \"t002G-B\", \"t003G-C\"]")
     private Set<String> tournees;
+    @Schema(description = "Montant (en €) cumulé de l'ensemble des commandes des tournées de la journée.")
+    private Double montant;
+    @Schema(description = "Temps de montage théorique (en minutes) cumulé de l'ensemble des commandes des tournées de la journée.")
+    private Integer tempsMontageTheorique;
 }

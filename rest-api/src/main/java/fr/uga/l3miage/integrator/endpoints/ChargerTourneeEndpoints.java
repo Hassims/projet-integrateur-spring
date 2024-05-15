@@ -2,6 +2,7 @@ package fr.uga.l3miage.integrator.endpoints;
 
 import fr.uga.l3miage.integrator.exceptions.NotFoundErrorResponse;
 import fr.uga.l3miage.integrator.requests.TourneePatchEtatRequest;
+import fr.uga.l3miage.integrator.response.TourneeDTO;
 import fr.uga.l3miage.integrator.response.VisualiserUneTourneeDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,5 +27,5 @@ public interface ChargerTourneeEndpoints {
     )
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping(value = "/tournee/{reference}", produces = "application/json")
-    VisualiserUneTourneeDTO patchTourneeEtat(@PathVariable(name = "reference")String reference, @RequestBody TourneePatchEtatRequest request);
+    TourneeDTO patchTourneeEtat(@PathVariable(name = "reference")String reference, @RequestBody TourneePatchEtatRequest request);
 }

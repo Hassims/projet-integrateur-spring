@@ -38,4 +38,14 @@ public class CommandeEntity {
     private Set<LigneEntity> lignes;
     @ManyToOne
     private LivraisonEntity livraison;
+
+    public double getMontant() {
+        return lignes.stream().map(LigneEntity::getMontant).reduce(0.0, Double::sum);
+    }
+
+    public Integer getTempsMontageTheorique() {
+        return lignes.stream()
+                .map(LigneEntity::getTempsMontageTheorique)
+                .reduce(0, (a, b) -> a + (b == null ? 0 : b));
+    }
 }

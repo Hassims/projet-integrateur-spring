@@ -1,11 +1,13 @@
 package fr.uga.l3miage.integrator.services;
 
+import fr.uga.l3miage.integrator.components.JourneeComponent;
 import fr.uga.l3miage.integrator.components.TourneeComponent;
 import fr.uga.l3miage.integrator.enums.EtatsDeCommande;
 import fr.uga.l3miage.integrator.enums.EtatsDeLivraison;
 import fr.uga.l3miage.integrator.enums.EtatsDeTournee;
 import fr.uga.l3miage.integrator.exceptions.rest.NotFoundEntityRestException;
 import fr.uga.l3miage.integrator.models.CommandeEntity;
+import fr.uga.l3miage.integrator.models.JourneeEntity;
 import fr.uga.l3miage.integrator.models.LivraisonEntity;
 import fr.uga.l3miage.integrator.models.TourneeEntity;
 import fr.uga.l3miage.integrator.repositories.CommandeRepository;
@@ -22,6 +24,7 @@ public class TourneeService {
     private final LivraisonRepository livraisonRepository;
     private final CommandeRepository commandeRepository;
     private final TourneeComponent tourneeComponent;
+    private final JourneeComponent journeeComponent ;
 
     public TourneeEntity findByReference(String reference) {
         try {
@@ -61,5 +64,28 @@ public class TourneeService {
         }
         tournee.setEtat(etat);
         return tourneeRepository.save(tournee);
+    }
+
+    public TourneeEntity updateTourneeJournee(String reference, String referencejournee) {
+
+        TourneeEntity tournee;
+        JourneeEntity journee ;
+        try {
+            tournee = tourneeComponent.findByReference(reference);
+        } catch (Exception e) {
+            throw new NotFoundEntityRestException("Tournée non trouvée");
+        }
+
+        try {
+            journee = journeeComponent.findByReference(referencejournee) ;
+
+        } catch (Exception e) {
+            throw new NotFoundEntityRestException("journée non trouvée");
+        }
+
+
+        tournee.setJournee(journee);
+        return tourneeRepository.save(tournee);
+
     }
 }
